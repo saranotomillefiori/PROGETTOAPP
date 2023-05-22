@@ -30,10 +30,7 @@ android {
         viewBinding true
     }
 }
-// provo a mettere il grafico bello mpchart
-//repositories {
- //   maven { url 'https://jitpack.io' }
-//}
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -46,7 +43,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
    // importo la GraphView:
     implementation 'com.jjoe64:graphview:4.2.2'
-    // importo android mpchart
-   // implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
 
