@@ -9,8 +9,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="414dp"
-        android:layout_height="137dp"
+        android:layout_width="417dp"
+        android:layout_height="224dp"
         android:layout_marginTop="50dp"
         android:backgroundTint="#2196F3"
         android:orientation="horizontal"
@@ -47,19 +47,19 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/FirstName"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
                         android:text="First Name" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/SecondName"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
                         android:text="Second Name" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/Age"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
                         android:text="Age" />
@@ -155,8 +155,8 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="416dp"
-        android:layout_height="536dp"
+        android:layout_width="417dp"
+        android:layout_height="391dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -164,35 +164,81 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="87dp"
+            android:layout_width="303dp"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp">
+
+                    </com.github.mikephil.charting.charts.LineChart>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="92dp"
+                        android:orientation="vertical">
+
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/chart2"
+                            android:layout_width="match_parent"
+                            android:layout_height="94dp"
+                            android:layout_weight="1">
+
+                            </com.github.mikephil.charting.charts.LineChart>
+                         </LinearLayout>
+
+                         <LinearLayout
+                             android:layout_width="match_parent"
+                             android:layout_height="119dp"
+                             android:orientation="vertical">
+
+                             <com.github.mikephil.charting.charts.LineChart
+                                 android:id="@+id/chart3"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="94dp"
+                                 android:layout_weight="1">
+
+                                 </com.github.mikephil.charting.charts.LineChart>
+                              </LinearLayout>
+
+                          </LinearLayout>
+
+                      </LinearLayout>
+
+                      <LinearLayout
+                          android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:layout_weight="1"
+                          android:orientation="horizontal">
+
+                      </LinearLayout>
 
 
-    </LinearLayout>
+                  </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="412dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="19dp"
-        android:background="#00BCD4"
-        android:backgroundTint="#00BCD4"
-        android:text="PARAMETERS"
-        android:textAlignment="center"
-        android:textColor="#45467E"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                  <TextView
+                      android:id="@+id/textView9"
+                      android:layout_width="412dp"
+                      android:layout_height="33dp"
+                      android:layout_marginTop="19dp"
+                      android:background="#00BCD4"
+                      android:backgroundTint="#00BCD4"
+                      android:text="PARAMETERS"
+                      android:textAlignment="center"
+                      android:textColor="#45467E"
+                      android:textSize="24sp"
+                      android:textStyle="bold"
+                      app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+                      app:layout_constraintEnd_toEndOf="parent"
+                      app:layout_constraintStart_toStartOf="parent"
+                      app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+              </androidx.constraintlayout.widget.ConstraintLayout>
