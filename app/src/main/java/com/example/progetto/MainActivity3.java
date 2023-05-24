@@ -1,4 +1,6 @@
 package com.example.progetto;
+//agg iio
+package com.techizvibe.testapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +9,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -25,11 +31,17 @@ public class MainActivity3 extends AppCompatActivity {
 
     Button button2;
     Button button6;
+    //EditText FirstNameText;
+    //TextView FirstNameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
+
+       // FirstNameText = (EditText) findViewById(R.id.FirstNameText);
+       // FirstNameView = (TextView) findViewById(R.id.FirstNameView);
+
 
         LineChart chart = (LineChart) findViewById(R.id.chart);
 
