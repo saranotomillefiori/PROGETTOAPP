@@ -1,6 +1,6 @@
 package com.example.progetto;
 //agg iio
-package com.techizvibe.testapplication;
+//package com.techizvibe.testapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -114,7 +114,12 @@ public class MainActivity3 extends AppCompatActivity {
         button6.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                button6.setText("FREEZE");
+                if(button6.getText().equals("START")) {
+                    button6.setText("FREEZE");
+                }
+                else{
+                    button6.setText("START");
+                }
             }
         });
 

@@ -6,7 +6,24 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:translationY="0dp"
-    tools:context=".MainActivity3">
+    tools:context=".MainActivity3"
+    >
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="55dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#45467E"
+        android:text="ADD"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.060000002" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -30,8 +47,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#6084F1FF"
-                android:text="PATIENT"
-                android:textAlignment="center"
+                android:text="       PATIENT"
+                android:textAlignment="viewStart"
                 android:textColor="#45467E"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -46,37 +63,39 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/FirstNameView"
+                    <EditText
+                        android:id="@+id/editTextFirstName"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
-                        android:text="First Name"
+
                         android:textColor="#000000"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:ems="10"
+                        android:hint="First Name"
+                        />
+
+
 
                     <EditText
-                        android:id="@+id/editTextTextPersonName2"
+                        android:id="@+id/editTextSecondName"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="52dp"
+
+                        android:textColor="#000000"
+                        android:textSize="16sp"
                         android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="Name" />
+                        android:hint="Second Name"
+                        />
 
-                    <TextView
-                        android:id="@+id/SecondName"
+                    <EditText
+                        android:id="@+id/editTextAge"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
-                        android:text="Second Name"
-                        android:textColor="#000000"
-                        android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/Age"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:text="Age"
                         android:textColor="#000000"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:hint="Age"
+                        android:ems="10"/>
 
                     <Spinner
                         android:id="@+id/spinner"
@@ -85,37 +104,46 @@
                         android:layout_weight="1"
                         android:entries="@array/gender" />
 
-                    <TextView
-                        android:id="@+id/textView5"
+                    <EditText
+                        android:id="@+id/editTextWeight"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
-                        android:text="Weight"
-                        android:textColor="#000000"
-                        android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/textView6"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:text="Height"
+                        android:hint="Weight"
                         android:textColor="#000000"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:ems="10"
+                        />
 
-                    <TextView
-                        android:id="@+id/textView7"
+                    <EditText
+                        android:id="@+id/editTextHeight"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
-                        android:text="Compliance"
-                        android:textColor="#000000"
-                        android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/textView8"
+                        android:hint="Height"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:ems="10"/>
+
+                    <EditText
+                        android:id="@+id/editTextComp"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
-                        android:text="Resistance"
+
+                        android:hint="Compliance"
                         android:textColor="#000000"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:ems="10"/>
+
+                    <EditText
+                        android:id="@+id/editTextRes"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+
+                        android:hint="Resistance"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:ems="10"/>
 
                 </LinearLayout>
             </ScrollView>
@@ -147,37 +175,45 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textView10"
+                    <EditText
+                        android:id="@+id/editTextPEEP"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
-                        android:text="PEEP"
-                        android:textColor="#000000"
-                        android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/textView11"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:text="FiO2"
+                        android:hint="PEEP"
                         android:textColor="#000000"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:ems="10"/>
 
-                    <TextView
-                        android:id="@+id/textView12"
+                    <EditText
+                        android:id="@+id/editTextfio2"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
-                        android:text="Pmax"
-                        android:textColor="#000000"
-                        android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/textView13"
+                        android:hint="FiO2"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:ems="10"/>
+
+                    <EditText
+                        android:id="@+id/editTextpmax"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
-                        android:text="%VM"
+
+                        android:hint="Pmax"
                         android:textColor="#000000"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:ems="10"/>
+
+                    <EditText
+                        android:id="@+id/editTextVM"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+
+                        android:hint="%VM"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:ems="10"/>
                 </LinearLayout>
             </ScrollView>
 
