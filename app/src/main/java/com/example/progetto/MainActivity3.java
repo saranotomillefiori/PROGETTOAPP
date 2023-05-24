@@ -2,13 +2,17 @@ package com.example.progetto;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -18,6 +22,9 @@ import java.util.List;
 
 
 public class MainActivity3 extends AppCompatActivity {
+
+    Button button2;
+    Button button6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,5 +96,34 @@ public class MainActivity3 extends AppCompatActivity {
                 new DataPoint(4, 6)
         });
         graph.addSeries(series);*/
+// bottone start
+        button6 = findViewById(R.id.button6);
+        button6.bringToFront();
+        button6.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                button6.setText("FREEZE");
+            }
+        });
+
+        // bottone stop
+
+
+        //BOTTONE trova il bottone//
+        button2 = findViewById(R.id.button2);
+        button2.bringToFront();
+        // BOTTONE imposta azione quando il bottone viene cliccato tutto quello da qui in poi
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                button2= (Button) findViewById(R.id.button2);
+                Intent i = new Intent(getApplicationContext(), PopActivity2.class);
+                startActivity(i);
+
+            }
+        });
+
     }
+
 }

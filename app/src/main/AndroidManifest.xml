@@ -12,10 +12,13 @@
         android:theme="@style/Theme.PROGETTO"
         tools:targetApi="31">
         <activity
+            android:name=".PopActivity2"
+            android:exported="false"
+            android:theme="@style/Theme.PROGETTO.PopMe"/>
+        <activity
             android:name=".PopActivity"
-            android:theme="@style/Theme.PROGETTO.PopMe"
-            android:exported="false" />
-
+            android:exported="false"
+            android:theme="@style/Theme.PROGETTO.PopMe" />
         <activity
             android:name=".MainActivity3"
             android:exported="false" />
