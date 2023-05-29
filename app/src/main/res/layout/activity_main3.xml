@@ -92,10 +92,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
 
-                        android:textColor="#000000"
-                        android:textSize="16sp"
+                        android:ems="10"
                         android:hint="Age"
-                        android:ems="10"/>
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
 
                     <Spinner
                         android:id="@+id/spinner"

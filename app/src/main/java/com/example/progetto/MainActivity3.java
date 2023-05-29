@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -23,6 +24,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,11 @@ public class MainActivity3 extends AppCompatActivity {
     Button button6;
     //EditText FirstNameText;
     //TextView FirstNameView;
+
+    public LineChart chart3;
+    public LineChart chart2;
+
+    PlotUpdater updater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +68,7 @@ public class MainActivity3 extends AppCompatActivity {
         chart.invalidate();
 
         // seconda
-        LineChart chart2 = (LineChart) findViewById(R.id.chart2);
+        chart2 = (LineChart) findViewById(R.id.chart2);
 
         List<Entry> entries2 = new ArrayList<Entry>();
         entries2.add(new Entry(0,1));
@@ -80,7 +87,7 @@ public class MainActivity3 extends AppCompatActivity {
 
         // terza
 
-        LineChart chart3 = (LineChart) findViewById(R.id.chart3);
+        chart3 = (LineChart) findViewById(R.id.chart3);
 
         List<Entry> entries3 = new ArrayList<Entry>();
         entries3.add(new Entry(0,1));
@@ -115,9 +122,24 @@ public class MainActivity3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(button6.getText().equals("START")) {
-                    button6.setText("FREEZE");
+                    // double R, double C, String gender, int age, double h, double w, double step, MainActivity3 parentActivity
+                    double r = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextRes)).getText()));
+                    double c = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextComp)).getText()));
+                    String gender = ((Spinner)findViewById(R.id.spinner)).getSelectedItem().toString();
+                    int age = Integer.parseInt(String.valueOf(((EditText)findViewById(R.id.editTextAge)).getText()));
+                    double h = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextHeight)).getText())) / 100;
+                    double w = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextWeight)).getText()));;
+
+                    try {
+                        updater = new PlotUpdater(r, c, gender, age, h, w, 0.5, (MainActivity3) view.getParent());
+                        button6.setText("FREEZE");
+                        updater.run();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
                 else{
+                    updater.setStatus("Freeze");
                     button6.setText("START");
                 }
             }
