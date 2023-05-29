@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -40,6 +43,7 @@ public class MainActivity3 extends AppCompatActivity {
     public LineChart chart2;
 
     PlotUpdater updater;
+    Thread updaterThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,13 +137,15 @@ public class MainActivity3 extends AppCompatActivity {
                     try {
                         updater = new PlotUpdater(r, c, gender, age, h, w, 0.5, (MainActivity3) view.getContext());
                         button6.setText("FREEZE");
-                        updater.run();
+                        updaterThread = new Thread(updater);
+                        updaterThread.start();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
-                else{
+                else {
                     updater.setStatus("Freeze");
+                    updaterThread.destroy();
                     button6.setText("START");
                 }
             }

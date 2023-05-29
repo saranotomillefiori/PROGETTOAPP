@@ -105,43 +105,47 @@ public class PlotUpdater implements Runnable {
     }
 
     public void updateFlowChart() {
-        // Get the values of the last 50 flows measured
-        List<Double> flowValues = simulator.getFlow();
-        // Build the list of entries
-        List<Entry> entries3 = new ArrayList<Entry>();
-        int index = 0;
-        for (double flow : flowValues) {
-            entries3.add(new Entry(index, (float)flow));
-            index++;
-        }
-        // Build the dataset
-        LineDataSet dataSet3 = new LineDataSet(entries3, "AirFlow / Time"); // add entries to dataset
-        dataSet3.setColor(Color.BLUE);
-        dataSet3.setValueTextColor(Color.BLACK);
-        // Set the CHART3 dataset to that previously build
-        LineData lineData3 = new LineData(dataSet3);
-        parentActivity.chart3.setData(lineData3);
-        parentActivity.chart3.invalidate();
+        try {
+            // Get the values of the last 50 flows measured
+            List<Double> flowValues = simulator.getFlow();
+            // Build the list of entries
+            List<Entry> entries3 = new ArrayList<Entry>();
+            int index = 0;
+            for (double flow : flowValues) {
+                entries3.add(new Entry(index, (float)flow));
+                index++;
+            }
+            // Build the dataset
+            LineDataSet dataSet3 = new LineDataSet(entries3, "AirFlow / Time"); // add entries to dataset
+            dataSet3.setColor(Color.BLUE);
+            dataSet3.setValueTextColor(Color.BLACK);
+            // Set the CHART3 dataset to that previously build
+            LineData lineData3 = new LineData(dataSet3);
+            parentActivity.chart3.setData(lineData3);
+            parentActivity.chart3.invalidate();
+        } catch (IndexOutOfBoundsException ex) {}
     }
 
     public void updatePressureChart() {
-        // Get the values of the last 50 pressures measured
-        List<Double> pressureValues = simulator.getPressure();
-        // Build the list of entries
-        List<Entry> entries2 = new ArrayList<Entry>();
-        int index = 0;
-        for (double pressure : pressureValues) {
-            entries2.add(new Entry(index, (float)pressure));
-            index++;
-        }
-        // Build the dataset
-        LineDataSet dataSet2 = new LineDataSet(entries2, "Pressure / Time"); // add entries to dataset
-        dataSet2.setColor(Color.BLUE);
-        dataSet2.setValueTextColor(Color.BLACK);
-        // Set the CHART2 dataset to that previously build
-        LineData lineData2 = new LineData(dataSet2);
-        parentActivity.chart2.setData(lineData2);
-        parentActivity.chart2.invalidate();
+        try {
+            // Get the values of the last 50 pressures measured
+            List<Double> pressureValues = simulator.getPressure();
+            // Build the list of entries
+            List<Entry> entries2 = new ArrayList<Entry>();
+            int index = 0;
+            for (double pressure : pressureValues) {
+                entries2.add(new Entry(index, (float) pressure));
+                index++;
+            }
+            // Build the dataset
+            LineDataSet dataSet2 = new LineDataSet(entries2, "Pressure / Time"); // add entries to dataset
+            dataSet2.setColor(Color.BLUE);
+            dataSet2.setValueTextColor(Color.BLACK);
+            // Set the CHART2 dataset to that previously build
+            LineData lineData2 = new LineData(dataSet2);
+            parentActivity.chart2.setData(lineData2);
+            parentActivity.chart2.invalidate();
+        } catch (IndexOutOfBoundsException ex) {}
     }
 
 }
