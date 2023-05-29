@@ -131,7 +131,7 @@ public class MainActivity3 extends AppCompatActivity {
                     double w = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextWeight)).getText()));;
 
                     try {
-                        updater = new PlotUpdater(r, c, gender, age, h, w, 0.5, (MainActivity3) view.getParent());
+                        updater = new PlotUpdater(r, c, gender, age, h, w, 0.5, (MainActivity3) view.getContext());
                         button6.setText("FREEZE");
                         updater.run();
                     } catch (IOException e) {

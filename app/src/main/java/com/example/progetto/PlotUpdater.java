@@ -1,12 +1,17 @@
 package com.example.progetto;
 
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.Environment;
 
 import com.example.progetto.MainActivity3;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +25,48 @@ public class PlotUpdater implements Runnable {
     MainActivity3 parentActivity;
 
     public PlotUpdater(double R, double C, String gender, int age, double h, double w, double step, MainActivity3 parentActivity) throws IOException {
+        String modelDescription = "---\n" +
+                "schema: 2\n" +
+                "elementsList:\n" +
+                "- elementName: Resistance\n" +
+                "  associatedFormula:\n" +
+                "    isTimeDependent: false\n" +
+                "    isExternal: false\n" +
+                "    formula: resistance1\n" +
+                "    variables:\n" +
+                "    - resistance1\n" +
+                "  type: ResistorElm\n" +
+                "  x: 0\n" +
+                "  y: 1\n" +
+                "  x1: 2 \n" +
+                "  y1: 1\n" +
+                "- elementName: Compliance\n" +
+                "  associatedFormula:\n" +
+                "    isTimeDependent: false\n" +
+                "    isExternal: false\n" +
+                "    formula: capacitor1\n" +
+                "    variables:\n" +
+                "    - capacitor1\n" +
+                "  type: CapacitorElm\n" +
+                "  x: 2\n" +
+                "  y: 1\n" +
+                "  x1: 4 \n" +
+                "  y1: 1\n" +
+                "  showLeft: true\n" +
+                "  idLeft: Alveoli\n" +
+                "  showRight: true\n" +
+                "  idRight: Intrathoracic Pressure\n" +
+                "- elementName: Ventilator\n" +
+                "  associatedFormula:\n" +
+                "    isTimeDependent: false\n" +
+                "    isExternal: true\n" +
+                "  type: ExternalVoltageElm\n" +
+                "  x: 4\n" +
+                "  y: 1\n" +
+                "  x1: 0 \n" +
+                "  y1: 1";
         // Build the simulator with simple RC circuit
-        simulator = new LungSimulatorInterface("libs/lung-model-Campbell-Brown.yaml");
+        simulator = new LungSimulatorInterface(modelDescription);
         simulator.setRandC(R, C);
         simulator.setDemographicData(gender, age, h, w);
         // Check the correctness and completeness of data
