@@ -3,6 +3,7 @@ package com.example.progetto;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Environment;
+import android.util.Log;
 
 import com.example.progetto.MainActivity3;
 import com.github.mikephil.charting.data.Entry;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lungsimulator.exceptions.InspireException;
 import lungsimulator.interfaceclass.LungSimulatorInterface;
 
 public class PlotUpdater implements Runnable {
@@ -70,14 +72,19 @@ public class PlotUpdater implements Runnable {
         simulator.setRandC(R, C);
         simulator.setDemographicData(gender, age, h, w);
         // Check the correctness and completeness of data
-        simulator.initializeSimulator();
-        // Simulation step
-        simulator.setStep(step);
-        // Start the simulation and set the initial time
-        simulator.startSimulation();
-        status = "Start";
-        // Set the parent activity
-        this.parentActivity = parentActivity;
+        try {
+            simulator.initializeSimulator();
+            // Simulation step
+            simulator.setStep(step);
+            // Start the simulation and set the initial time
+            simulator.startSimulation();
+            status = "Start";
+            // Set the parent activity
+            this.parentActivity = parentActivity;
+        } catch(InspireException ex) {
+            Log.d("t", ex.getMessage());
+            status = "Stop";
+        }
     }
 
     /**
@@ -94,7 +101,9 @@ public class PlotUpdater implements Runnable {
         while (true) {
             if (status.equals("Start")) {
                 simulator.simulationStep(5);
+                Log.d("t","Update flow chart");
                 updateFlowChart();
+                Log.d("t","Update pressure chart");
                 updatePressureChart();
             } else if (status.equals("Stop")) {
                 break;
@@ -117,7 +126,9 @@ public class PlotUpdater implements Runnable {
             }
             // Build the dataset
             LineDataSet dataSet3 = new LineDataSet(entries3, "AirFlow / Time"); // add entries to dataset
-            dataSet3.setColor(Color.BLUE);
+            dataSet3.setColor(Color.GREEN);
+            dataSet3.setDrawCircles(false);
+            dataSet3.setDrawValues(false);
             dataSet3.setValueTextColor(Color.BLACK);
             // Set the CHART3 dataset to that previously build
             LineData lineData3 = new LineData(dataSet3);
@@ -140,6 +151,8 @@ public class PlotUpdater implements Runnable {
             // Build the dataset
             LineDataSet dataSet2 = new LineDataSet(entries2, "Pressure / Time"); // add entries to dataset
             dataSet2.setColor(Color.BLUE);
+            dataSet2.setDrawCircles(false);
+            dataSet2.setDrawValues(false);
             dataSet2.setValueTextColor(Color.BLACK);
             // Set the CHART2 dataset to that previously build
             LineData lineData2 = new LineData(dataSet2);
