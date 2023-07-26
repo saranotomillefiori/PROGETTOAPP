@@ -215,6 +215,15 @@
                         android:textSize="16sp"
                         android:ems="10"/>
                     <EditText
+                        android:id="@+id/editTextVMAX"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+
+                        android:hint="V Max"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:ems="10"/>
+                    <EditText
                         android:id="@+id/editTextMinVolume"
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
@@ -241,15 +250,7 @@
                         android:textColor="#000000"
                         android:textSize="16sp"
                         android:ems="10"/>
-                    <EditText
-                        android:id="@+id/editTextVD"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
 
-                        android:hint="Dead Space Volume"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:ems="10"/>
                 </LinearLayout>
             </ScrollView>
 

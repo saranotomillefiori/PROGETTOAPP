@@ -1,18 +1,12 @@
 package com.example.progetto;
 
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.os.Environment;
 import android.util.Log;
 
-import com.example.progetto.MainActivity3;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +19,8 @@ public class PlotUpdater implements Runnable {
     LungSimulatorInterface simulator;
     String status;
     MainActivity3 parentActivity;
+
+    private double ventoutput;
 
     public PlotUpdater(double R, double C, String gender, int age, double h, double w, double step, MainActivity3 parentActivity) throws IOException {
         String modelDescription = "---\n" +
@@ -81,7 +77,7 @@ public class PlotUpdater implements Runnable {
             status = "Start";
             // Set the parent activity
             this.parentActivity = parentActivity;
-        } catch(InspireException ex) {
+        } catch (InspireException ex) {
             Log.d("t", ex.getMessage());
             status = "Stop";
         }
@@ -100,11 +96,13 @@ public class PlotUpdater implements Runnable {
     public void run() {
         while (true) {
             if (status.equals("Start")) {
-                simulator.simulationStep(5);
-                Log.d("t","Update flow chart");
+                simulator.simulationStep(Ventilator.ventoutput ); // proviamo a cambiare
+                Log.d("t", "Update flow chart");
                 updateFlowChart();
-                Log.d("t","Update pressure chart");
+                Log.d("t", "Update pressure chart");
                 updatePressureChart();
+                Log.d("t", "Update otis chart");
+              //  updateOtisChart();
             } else if (status.equals("Stop")) {
                 break;
             } else if (status.equals("Freeze")) {
@@ -121,7 +119,7 @@ public class PlotUpdater implements Runnable {
             List<Entry> entries3 = new ArrayList<Entry>();
             int index = 0;
             for (double flow : flowValues) {
-                entries3.add(new Entry(index, (float)flow));
+                entries3.add(new Entry(index, (float) flow));
                 index++;
             }
             // Build the dataset
@@ -134,7 +132,8 @@ public class PlotUpdater implements Runnable {
             LineData lineData3 = new LineData(dataSet3);
             parentActivity.chart3.setData(lineData3);
             parentActivity.chart3.invalidate();
-        } catch (IndexOutOfBoundsException ex) {}
+        } catch (IndexOutOfBoundsException ex) {
+        }
     }
 
     public void updatePressureChart() {
@@ -158,7 +157,9 @@ public class PlotUpdater implements Runnable {
             LineData lineData2 = new LineData(dataSet2);
             parentActivity.chart2.setData(lineData2);
             parentActivity.chart2.invalidate();
-        } catch (IndexOutOfBoundsException ex) {}
+        } catch (IndexOutOfBoundsException ex) {
+        }
     }
+
 
 }

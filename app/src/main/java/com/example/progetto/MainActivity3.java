@@ -1,24 +1,17 @@
 package com.example.progetto;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity3 extends AppCompatActivity {
@@ -27,7 +20,7 @@ public class MainActivity3 extends AppCompatActivity {
     Button button6;
     //EditText FirstNameText;
     //TextView FirstNameView;
-
+    public LineChart chart;
     public LineChart chart3;
     public LineChart chart2;
 
@@ -42,23 +35,10 @@ public class MainActivity3 extends AppCompatActivity {
         // FirstNameText = (EditText) findViewById(R.id.FirstNameText);
         // FirstNameView = (TextView) findViewById(R.id.FirstNameView);
 
+      //prima
+       chart = (LineChart) findViewById(R.id.chart);
+       chart.getLegend().setEnabled(false);
 
-        LineChart chart = (LineChart) findViewById(R.id.chart);
-
-        List<Entry> entries = new ArrayList<Entry>();
-        entries.add(new Entry(0,1));
-        entries.add(new Entry(1,5));
-        entries.add(new Entry(2,3));
-        entries.add(new Entry(3,2));
-        entries.add(new Entry(4,6));
-
-        LineDataSet dataSet = new LineDataSet(entries, "Volume / Time"); // add entries to dataset
-        dataSet.setColor(Color.RED);
-        dataSet.setValueTextColor(Color.BLACK);
-
-        LineData lineData = new LineData(dataSet);
-        chart.setData(lineData);
-        chart.invalidate();
 
         // seconda
         chart2 = (LineChart) findViewById(R.id.chart2);
