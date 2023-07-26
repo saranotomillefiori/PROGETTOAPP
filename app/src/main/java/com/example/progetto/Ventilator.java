@@ -1,40 +1,38 @@
 package com.example.progetto;
 
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
 
-import lungsimulator.exceptions.InspireException;
 import lungsimulator.interfaceclass.LungSimulatorInterface;
 
 public class Ventilator implements Runnable{
     LungSimulatorInterface simulator;
-    Ventilator ventilator;
+    String ventilator;
+    private EditText VMAX;
+    private EditText PEEP;
    // String status;
 
     MainActivity3 parentActivity;
     public Ventilator(double RR, double IE, double VMAX, double PEEP,  MainActivity3 parentActivity) throws
             IOException {
     }
+
     @Override
     public void run() {
         while (true) { // il true poi quando funziona lo cambiamo con una variabile boolean che richiama i bottoni, così da fare andare il run solo quando si preme il bottone e stopparlo se necessario
-            ventilator = double.VMAX; //capiamo come si richiama il dato dall'altra pagina
+            ventilator = VMAX.getText().toString(); //capiamo come si richiama il dato dall'altra pagina
             try {
                 Thread.sleep(1250); // inspiro
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
+                //Intent intent = new Intent(this, DestinationActivity.class);
+                //String dataToPass = "VMAX";
+                //intent.putExtra("KEY_DATA", dataToPass);
+                //PlotUpdater(intent);
             }
-            ventilator = double.PEEP;
+            ventilator = PEEP.getText().toString();
             try {
                 Thread.sleep(3750); // espiro
             } catch (InterruptedException e) {
@@ -43,6 +41,8 @@ public class Ventilator implements Runnable{
         }
         }
     }
+
+    // aggiungiamo Intent
 
 //public class Ventilator extends AppCompatActivity {
 //    private Button button6;

@@ -96,7 +96,7 @@ public class PlotUpdater implements Runnable {
     public void run() {
         while (true) {
             if (status.equals("Start")) {
-                simulator.simulationStep(Ventilator.ventoutput ); // proviamo a cambiare
+                simulator.simulationStep(Ventilator.); // proviamo a cambiare
                 Log.d("t", "Update flow chart");
                 updateFlowChart();
                 Log.d("t", "Update pressure chart");
