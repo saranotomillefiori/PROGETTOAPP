@@ -62,9 +62,13 @@ public class MainActivity3 extends AppCompatActivity {
                     int age = Integer.parseInt(String.valueOf(((EditText)findViewById(R.id.editTextAge)).getText()));
                     double h = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextHeight)).getText())) / 100;
                     double w = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextWeight)).getText()));;
+                    double RR = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextRR)).getText()));
+                    double IE = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextIE)).getText()));
+                    double PEEP = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextPEEP)).getText()));
+                    double VMAX = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextVMAX)).getText()));
 
                     try {
-                        updater = new PlotUpdater(r, c, gender, age, h, w, 0.1, (MainActivity3) view.getContext());
+                        updater = new PlotUpdater(r, c, gender, age, h, w, 0.1,RR,IE,VMAX,PEEP, (MainActivity3) view.getContext());
                         button6.setText("FREEZE");
                         updaterThread = new Thread(updater);
                         updaterThread.start();

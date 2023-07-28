@@ -18,11 +18,12 @@ public class PlotUpdater implements Runnable {
 
     LungSimulatorInterface simulator;
     String status;
+    Ventilator ventilator;
     MainActivity3 parentActivity;
 
     private double ventoutput;
 
-    public PlotUpdater(double R, double C, String gender, int age, double h, double w, double step, MainActivity3 parentActivity) throws IOException {
+    public PlotUpdater(double R, double C, String gender, int age, double h, double w, double step,double RR, double IE, double VMAX, double PEEP, MainActivity3 parentActivity) throws IOException {
         String modelDescription = "---\n" +
                 "schema: 2\n" +
                 "elementsList:\n" +
@@ -63,6 +64,7 @@ public class PlotUpdater implements Runnable {
                 "  y: 1\n" +
                 "  x1: 0 \n" +
                 "  y1: 1";
+        ventilator= new Ventilator(RR,IE, VMAX, PEEP, parentActivity);
         // Build the simulator with simple RC circuit
         simulator = new LungSimulatorInterface(modelDescription);
         simulator.setRandC(R, C);
@@ -74,6 +76,8 @@ public class PlotUpdater implements Runnable {
             simulator.setStep(step);
             // Start the simulation and set the initial time
             simulator.startSimulation();
+            Thread Vventilator= new Thread(ventilator);
+            Vventilator.start();
             status = "Start";
             // Set the parent activity
             this.parentActivity = parentActivity;
@@ -96,7 +100,7 @@ public class PlotUpdater implements Runnable {
     public void run() {
         while (true) {
             if (status.equals("Start")) {
-                simulator.simulationStep(Ventilator.); // proviamo a cambiare
+                simulator.simulationStep(ventilator.getvalue()); // proviamo a cambiare con Get
                 Log.d("t", "Update flow chart");
                 updateFlowChart();
                 Log.d("t", "Update pressure chart");

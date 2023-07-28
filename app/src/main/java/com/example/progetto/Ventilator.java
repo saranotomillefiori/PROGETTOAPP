@@ -9,30 +9,30 @@ import lungsimulator.interfaceclass.LungSimulatorInterface;
 
 public class Ventilator implements Runnable{
     LungSimulatorInterface simulator;
-    String ventilator;
-    private EditText VMAX;
-    private EditText PEEP;
+    int value;
+    private double VMAX;
+    private double PEEP;
+    private double RR;
+    private double IE;
    // String status;
 
     MainActivity3 parentActivity;
     public Ventilator(double RR, double IE, double VMAX, double PEEP,  MainActivity3 parentActivity) throws
-            IOException {
+            IOException
+    {this.RR=RR; this.IE=IE; this.VMAX=VMAX; this.PEEP=PEEP; this.parentActivity=parentActivity;
     }
-
+    public int getvalue()  {return value;}
     @Override
     public void run() {
         while (true) { // il true poi quando funziona lo cambiamo con una variabile boolean che richiama i bottoni, così da fare andare il run solo quando si preme il bottone e stopparlo se necessario
-            ventilator = VMAX.getText().toString(); //capiamo come si richiama il dato dall'altra pagina
+            value = (int)VMAX; //capiamo come si richiama il dato dall'altra pagina
             try {
                 Thread.sleep(1250); // inspiro
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
-                //Intent intent = new Intent(this, DestinationActivity.class);
-                //String dataToPass = "VMAX";
-                //intent.putExtra("KEY_DATA", dataToPass);
-                //PlotUpdater(intent);
+
             }
-            ventilator = PEEP.getText().toString();
+            value =(int)PEEP;
             try {
                 Thread.sleep(3750); // espiro
             } catch (InterruptedException e) {
