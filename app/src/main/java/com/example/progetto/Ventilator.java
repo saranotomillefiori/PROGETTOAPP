@@ -14,6 +14,7 @@ public class Ventilator implements Runnable{
     private double PEEP;
     private double RR;
     private double IE;
+
    // String status;
 
     MainActivity3 parentActivity;
@@ -27,14 +28,14 @@ public class Ventilator implements Runnable{
         while (true) { // il true poi quando funziona lo cambiamo con una variabile boolean che richiama i bottoni, così da fare andare il run solo quando si preme il bottone e stopparlo se necessario
             value = (int)VMAX; //capiamo come si richiama il dato dall'altra pagina
             try {
-                Thread.sleep(1250); // inspiro
+                Thread.sleep((int) ((60/RR)/IE)); // inspiro
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
 
             }
             value =(int)PEEP;
             try {
-                Thread.sleep(3750); // espiro
+                Thread.sleep((int)((60/RR)*(1-1/IE))); // espiro
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
