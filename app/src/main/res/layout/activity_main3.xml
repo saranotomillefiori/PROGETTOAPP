@@ -315,7 +315,8 @@
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/chart"
                         android:layout_width="match_parent"
-                        android:layout_height="111dp">
+                        android:layout_height="111dp"
+                        >
 
                     </com.github.mikephil.charting.charts.LineChart>
                 </LinearLayout>

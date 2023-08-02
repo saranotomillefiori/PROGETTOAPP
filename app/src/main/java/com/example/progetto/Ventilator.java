@@ -1,8 +1,6 @@
 package com.example.progetto;
 
 
-import android.widget.EditText;
-
 import java.io.IOException;
 
 import lungsimulator.interfaceclass.LungSimulatorInterface;
@@ -28,14 +26,14 @@ public class Ventilator implements Runnable{
         while (true) { // il true poi quando funziona lo cambiamo con una variabile boolean che richiama i bottoni, così da fare andare il run solo quando si preme il bottone e stopparlo se necessario
             value = (int)VMAX; //capiamo come si richiama il dato dall'altra pagina
             try {
-                Thread.sleep((int) ((60/RR)/IE)); // inspiro
+                Thread.sleep((int) ((60/RR)/(1+IE))); // inspiro
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
 
             }
             value =(int)PEEP;
             try {
-                Thread.sleep((int)((60/RR)*(1-1/IE))); // espiro
+                Thread.sleep((int)((60/RR)*(1-(1/(1+IE))))); // espiro
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

@@ -3,6 +3,7 @@ package com.example.progetto;
 import android.graphics.Color;
 import android.util.Log;
 
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -132,11 +133,15 @@ public class PlotUpdater implements Runnable {
             dataSet3.setDrawCircles(false);
             dataSet3.setDrawValues(false);
             dataSet3.setValueTextColor(Color.BLACK);
-            dataSet3.getLabel(); //da controllare
             // Set the CHART3 dataset to that previously build
             LineData lineData3 = new LineData(dataSet3);
             parentActivity.chart3.setData(lineData3);
             parentActivity.chart3.invalidate();
+            Description description = new Description();
+            description.setText("Air Flow");
+            parentActivity.chart3.setDescription(description);
+
+
         } catch (IndexOutOfBoundsException ex) {
         }
     }
@@ -158,11 +163,13 @@ public class PlotUpdater implements Runnable {
             dataSet2.setDrawCircles(false);
             dataSet2.setDrawValues(false);
             dataSet2.setValueTextColor(Color.BLACK);
-            dataSet2.getLabel();
             // Set the CHART2 dataset to that previously build
             LineData lineData2 = new LineData(dataSet2);
             parentActivity.chart2.setData(lineData2);
             parentActivity.chart2.invalidate();
+            Description description = new Description();
+            description.setText("Pressure");
+            parentActivity.chart2.setDescription(description);
         } catch (IndexOutOfBoundsException ex) {
         }
     }
