@@ -12,10 +12,12 @@
         android:id="@+id/textView"
         android:layout_width="270dp"
         android:layout_height="420dp"
-        android:text="WHAT IS THE VENTILATION APP? It’s an app that allows the doctor to simulate interaction with a lung ventilator.                                                   HOW CAN I USE VENTILATION APP?  You have to set the parameters of the patient, scrolling the menu and filling the spaces. Then you have to do the same thing for the ventilator’s parameters. Below you will see three graphs: volume, flow and pressure, all of them taken during both expiratory and inspiratory phase.  On the right a traffic light will display if you are doing correctly.                                                 RED LIGHT= You have to change parameters \nYELLOW LIGHT= You are near to the right solution \nGREEN LIGHT= You are right! The choices you made are near to the OPTIMUM"
+        android:text="WHAT IS VENTILATION APP?                                                    It’s an app that allows the doctor to simulate interaction with a lung ventilator.                                                       HOW DOES IT WORK?                                          You need to set the parameters of the patient, scrolling the menu and filling the spaces. \nThen do the same thing for the ventilator’s parameters. \nThe simulation will show you 2 graphs: volume and flow, taken during both expiratory and inspiratory phases.  \nA traffic light will display if you are doing correctly.                                                 RED LIGHT= You have to change parameters \nYELLOW LIGHT= You are near to the right solution \nGREEN LIGHT= You are right! You are near the OPTIMUM"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.58000004" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

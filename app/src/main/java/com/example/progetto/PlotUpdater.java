@@ -21,10 +21,12 @@ public class PlotUpdater implements Runnable {
     String status;
     Ventilator ventilator;
     MainActivity3 parentActivity;
+    PopActivityPatient parentActivity2;
+    PopActivityVentilator parentActivity3;
 
     private double ventoutput;
 
-    public PlotUpdater(double R, double C, String gender, int age, double h, double w, double step,double RR, double IE, double VMAX, double PEEP, MainActivity3 parentActivity) throws IOException {
+    public PlotUpdater(double R, double C, String gender, int age, double h, double w, double step,double RR, double IE, double VMAX, double PEEP, MainActivity3 parentActivity, PopActivityPatient parentActivity2, PopActivityVentilator parentActivity3) throws IOException {
         String modelDescription = "---\n" +
                 "schema: 2\n" +
                 "elementsList:\n" +
@@ -65,7 +67,8 @@ public class PlotUpdater implements Runnable {
                 "  y: 1\n" +
                 "  x1: 0 \n" +
                 "  y1: 1";
-        ventilator= new Ventilator(RR,IE, VMAX, PEEP, parentActivity);
+        ventilator= new Ventilator(RR,IE, VMAX, PEEP, parentActivity3);
+        // DEVO SCRIVERE LA STESSA RIGA DI CODICE PER IL SIMULATORE CON L'ALTRO POP UP????
         // Build the simulator with simple RC circuit
         simulator = new LungSimulatorInterface(modelDescription);
         simulator.setRandC(R, C);
@@ -79,9 +82,10 @@ public class PlotUpdater implements Runnable {
             simulator.startSimulation();
             Thread Vventilator= new Thread(ventilator);
             Vventilator.start();
+
             status = "Start";
             // Set the parent activity
-            this.parentActivity = parentActivity;
+            this.parentActivity = parentActivity; // come faccio a cambiarlo e passare contemporaneamente i parametri dai due pop up?
         } catch (InspireException ex) {
             Log.d("t", ex.getMessage());
             status = "Stop";
@@ -106,8 +110,11 @@ public class PlotUpdater implements Runnable {
                 updateFlowChart();
                 Log.d("t", "Update pressure chart");
                 updatePressureChart();
-                Log.d("t", "Update otis chart");
-              //  updateOtisChart();
+
+               //Otis.OtisFormula.calculatewithOtisFormula(double Res, double Comp, double MinVolume, double RR, double weight, double height,  String gender, PopActivityPatient parentActivity2, PopActivityVentilator parentActivity3, MainActivity3 parentactivity);
+               Log.d("t", "Update otis chart");
+               // updateOtisChart();
+
             } else if (status.equals("Stop")) {
                 break;
             } else if (status.equals("Freeze")) {
@@ -135,7 +142,7 @@ public class PlotUpdater implements Runnable {
             dataSet3.setValueTextColor(Color.BLACK);
             // Set the CHART3 dataset to that previously build
             LineData lineData3 = new LineData(dataSet3);
-            parentActivity.chart3.setData(lineData3);
+            parentActivity.chart3.setData(lineData3);  // anche qui come posso fare??
             parentActivity.chart3.invalidate();
             Description description = new Description();
             description.setText("Air Flow");

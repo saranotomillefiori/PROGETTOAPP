@@ -1,10 +1,12 @@
 package com.example.progetto;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,8 +18,11 @@ import java.io.IOException;
 
 public class MainActivity3 extends AppCompatActivity {
 
-    Button button2;
-    Button button6;
+    ImageButton imageButtonStop;
+    ImageButton imageButtonStart;
+
+    Button patient;
+    Button ventilator;
     //EditText FirstNameText;
     //TextView FirstNameView;
     public LineChart chart;
@@ -27,6 +32,7 @@ public class MainActivity3 extends AppCompatActivity {
     PlotUpdater updater;
     Thread updaterThread;
 
+    @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +42,8 @@ public class MainActivity3 extends AppCompatActivity {
         // FirstNameView = (TextView) findViewById(R.id.FirstNameView);
 
       //prima
-       chart = (LineChart) findViewById(R.id.chart);
-       chart.getLegend().setEnabled(false);
+      // chart = (LineChart) findViewById(R.id.chart);
+      // chart.getLegend().setEnabled(false);
 
 
         // seconda
@@ -49,12 +55,12 @@ public class MainActivity3 extends AppCompatActivity {
         chart3.getLegend().setEnabled(false);
 
         // bottone start
-        button6 = findViewById(R.id.button6);
-        button6.bringToFront();
-        button6.setOnClickListener(new View.OnClickListener(){
+        imageButtonStart = findViewById(R.id.imageButtonStart);
+        imageButtonStart.bringToFront();
+        imageButtonStart.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(button6.getText().equals("START")) {
+                if(imageButtonStart.getBackground().equals(R.drawable.playblu)) {
                     // double R, double C, String gender, int age, double h, double w, double step, MainActivity3 parentActivity
                     double r = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextRes)).getText()));
                     double c = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextComp)).getText()));
@@ -68,8 +74,10 @@ public class MainActivity3 extends AppCompatActivity {
                     double VMAX = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextVMAX)).getText()));
 
                     try {
-                        updater = new PlotUpdater(r, c, gender, age, h, w, 0.1,RR,IE,VMAX,PEEP, (MainActivity3) view.getContext());
-                        button6.setText("FREEZE");
+                        updater = new PlotUpdater(r, c, gender, age, h, w, 0.1,RR,IE,VMAX,PEEP, (MainActivity3) view.getContext(), (PopActivityPatient) view.getContext(), (PopActivityVentilator) view.getContext());
+                        imageButtonStart.setBackgroundResource(R.drawable.pauseblu);
+
+
                         updaterThread = new Thread(updater);
                         updaterThread.start();
                     } catch (IOException e) {
@@ -78,7 +86,8 @@ public class MainActivity3 extends AppCompatActivity {
                 }
                 else {
                     updater.setStatus("Freeze");
-                    button6.setText("START");
+                    imageButtonStart.setBackgroundResource(R.drawable.playblu);
+
                 }
             }
         });
@@ -87,20 +96,45 @@ public class MainActivity3 extends AppCompatActivity {
 
 
         //BOTTONE trova il bottone//
-        button2 = findViewById(R.id.button2);
-        button2.bringToFront();
+        imageButtonStop = findViewById(R.id.imageButtonStop);
+        imageButtonStop.bringToFront();
+        patient = findViewById(R.id.patient);
+        patient.bringToFront();
+        ventilator = findViewById(R.id.ventilator);
+        ventilator.bringToFront();
         // BOTTONE imposta azione quando il bottone viene cliccato tutto quello da qui in poi
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        imageButtonStop.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View view) {
 
-                button2= (Button) findViewById(R.id.button2);
-                Intent i = new Intent(getApplicationContext(), PopActivity2.class);
-                startActivity(i);
+                                           imageButtonStop = (ImageButton) findViewById(R.id.imageButtonStop);
+                                           Intent i = new Intent(getApplicationContext(), PopActivity2.class);
+                                           startActivity(i);
+
+                                       }
+                                   });
+        patient.setOnClickListener(new View.OnClickListener()
+
+            {
+                @Override
+                public void onClick (View view){
+
+                patient = (Button) findViewById(R.id.patient);
+                Intent j = new Intent(getApplicationContext(), PopActivityPatient.class);
+                startActivity(j);
 
             }
-        });
+            });
+                ventilator.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
+                        ventilator= (Button) findViewById(R.id.ventilator);
+                        Intent k = new Intent(getApplicationContext(), PopActivityVentilator.class);
+                        startActivity(k);
+
+                    }
+        });
     }
 
 }

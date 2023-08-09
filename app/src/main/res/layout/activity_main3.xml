@@ -6,371 +6,20 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:translationY="0dp"
-    tools:context=".MainActivity3"
-    >
+    tools:context=".MainActivity3">
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="55dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#45467E"
-        android:text="ADD"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.35"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.060000002" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="413dp"
-        android:layout_height="145dp"
-        android:backgroundTint="#2196F3"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/LinearLayoutMiddle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/linearLayout3"
-        app:layout_constraintVertical_bias="0.0">
-
-        <LinearLayout
-            android:layout_width="203dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/patientparam"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#6084F1FF"
-                android:text="       PATIENT"
-                android:textAlignment="viewStart"
-                android:textColor="#45467E"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="77dp"
-                android:clipToPadding="false">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/editTextFirstName"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:ems="10"
-                        android:hint="First Name"
-                        />
-
-
-
-                    <EditText
-                        android:id="@+id/editTextSecondName"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:ems="10"
-                        android:hint="Second Name"
-                        />
-
-                    <EditText
-                        android:id="@+id/editTextAge"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-
-                        android:ems="10"
-                        android:hint="Age"
-                        android:textColor="#000000"
-                        android:textSize="16sp" />
-
-                    <Spinner
-                        android:id="@+id/spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:layout_weight="1"
-                        android:entries="@array/gender" />
-
-                    <EditText
-                        android:id="@+id/editTextWeight"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-
-                        android:hint="Weight"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:ems="10"
-                        />
-
-                    <EditText
-                        android:id="@+id/editTextHeight"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-
-                        android:hint="Height"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:ems="10"/>
-
-                    <EditText
-                        android:id="@+id/editTextComp"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-
-                        android:hint="Compliance"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:ems="10"/>
-
-                    <EditText
-                        android:id="@+id/editTextRes"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-
-                        android:hint="Resistance"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:ems="10"/>
-
-                </LinearLayout>
-            </ScrollView>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="210dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/patientparam2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#6084F1FF"
-                android:text="VENTILATOR"
-                android:textAlignment="center"
-                android:textColor="#45467E"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="77dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/editTextPEEP"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-
-                        android:hint="PEEP"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:ems="10"/>
-
-                    <EditText
-                        android:id="@+id/editTextfio2"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-
-                        android:hint="FiO2"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:ems="10"/>
-
-                    <EditText
-                        android:id="@+id/editTextpmax"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-
-                        android:hint="Pmax"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:ems="10"/>
-
-                    <EditText
-                        android:id="@+id/editTextVM"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-
-                        android:hint="%VM"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:ems="10"/>
-                    <EditText
-                        android:id="@+id/editTextVMAX"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-
-                        android:hint="V Max"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:ems="10"/>
-                    <EditText
-                        android:id="@+id/editTextMinVolume"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-
-                        android:hint="MinVolume"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:ems="10"/>
-                    <EditText
-                        android:id="@+id/editTextIE"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-
-                        android:hint="I/E"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:ems="10"/>
-                    <EditText
-                        android:id="@+id/editTextRR"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-
-                        android:hint="Respiratory Rate"
-                        android:textColor="#000000"
-                        android:textSize="16sp"
-                        android:ems="10"/>
-
-                </LinearLayout>
-            </ScrollView>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/LinearLayoutMiddle"
+    <ImageView
+        android:id="@+id/background"
         android:layout_width="415dp"
-        android:layout_height="33dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@id/linearLayoutsotto"
-        app:layout_constraintEnd_toEndOf="@id/linearLayoutsotto"
-        app:layout_constraintHorizontal_bias="0.01"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.27999997">
-
-        <TextView
-            android:id="@+id/SIMULATION"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#00BCD4"
-            android:backgroundTint="#00BCD4"
-            android:text="SIMULATION"
-            android:textAlignment="center"
-            android:textColor="#45467E"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayoutsotto"
-        android:layout_width="409dp"
-        android:layout_height="382dp"
-        android:orientation="horizontal"
+        android:layout_height="733dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.92"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/LinearLayoutMiddle">
-
-        <LinearLayout
-            android:id="@+id/botton"
-            android:layout_width="279dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="442dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="111dp"
-                    android:orientation="vertical">
-
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/chart"
-                        android:layout_width="match_parent"
-                        android:layout_height="111dp"
-                        >
-
-                    </com.github.mikephil.charting.charts.LineChart>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="111dp"
-                    android:orientation="vertical">
-
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/chart2"
-                        android:layout_width="match_parent"
-                        android:layout_height="111dp"
-                        android:layout_weight="1">
-
-                    </com.github.mikephil.charting.charts.LineChart>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/linearLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="111dp"
-                    android:orientation="vertical">
-
-                    <com.github.mikephil.charting.charts.LineChart
-                        android:id="@+id/chart3"
-                        android:layout_width="match_parent"
-                        android:layout_height="111dp"
-                        android:layout_weight="1">
-
-                    </com.github.mikephil.charting.charts.LineChart>
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="131dp"
-            android:layout_height="486dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="403dp"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/semaforo1" />
-        </LinearLayout>
-
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/sfondoappventilatoresmall" />
 
     <TextView
         android:id="@+id/textView9"
@@ -388,34 +37,201 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:elevation="5dp"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="91dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="410dp"
-        android:layout_marginTop="1080dp"
-        android:layout_marginBottom="143dp"
-        android:backgroundTint="#45467E"
-        android:text="STOP"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayoutsotto"
-        app:layout_constraintEnd_toStartOf="@+id/textView9"
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="411dp"
+        android:layout_height="79dp"
+        android:background="#86D2FAFF"
+        android:backgroundTint="#1D00BCD4"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/LinearLayoutMiddle"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/linearLayout3"
+        app:layout_constraintVertical_bias="0.0">
 
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="940dp"
-        android:backgroundTint="#45467E"
-        android:text="START"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayoutsotto"
-        app:layout_constraintEnd_toStartOf="@+id/textView9"
-        app:layout_constraintHorizontal_bias="0.39"
+        <LinearLayout
+            android:layout_width="203dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/patient"
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:backgroundTint="#0004FF"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="PATIENT"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="210dp"
+            android:layout_height="match_parent"
+            android:elevation="2dp"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/ventilator"
+                android:layout_width="144dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|center_horizontal|center_vertical"
+                android:backgroundTint="#0004FF"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="VENTILATOR"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayoutMiddle"
+        android:layout_width="415dp"
+        android:layout_height="33dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/linearLayoutsotto"
+        app:layout_constraintEnd_toEndOf="@id/linearLayoutsotto"
+        app:layout_constraintHorizontal_bias="0.01"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.23000002">
+
+        <TextView
+            android:id="@+id/SIMULATION"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#00BCD4"
+            android:backgroundTint="#00BCD4"
+            android:text="SIMULATION"
+            android:textAlignment="center"
+            android:textColor="#45467E"
+            android:textSize="24sp"
+            android:elevation="5dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutsotto"
+        android:layout_width="410dp"
+        android:layout_height="519dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35000002">
+
+        <LinearLayout
+            android:id="@+id/botton"
+            android:layout_width="410dp"
+            android:layout_height="599dp"
+            android:layout_gravity="bottom|end"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
+
+            <LinearLayout
+                android:layout_width="427dp"
+                android:layout_height="437dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                tools:ignore="UselessParent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="138dp"
+                    android:background="#00BCD4"
+                    android:backgroundTint="#1D00BCD4"
+                    android:elevation="2dp"
+                    android:orientation="vertical">
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/chart2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                    </com.github.mikephil.charting.charts.LineChart>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="135dp"
+                    android:background="#00BCD4"
+                    android:backgroundTint="#1D00BCD4"
+                    android:elevation="2dp"
+                    android:orientation="vertical">
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/chart3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                    </com.github.mikephil.charting.charts.LineChart>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="87dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageViewSemaforo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/next"
+                        app:srcCompat="@drawable/semspento" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="132dp"
+                    android:layout_height="69dp"
+                    android:layout_gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/imageButtonStart"
+                        android:layout_width="3dp"
+                        android:layout_height="69dp"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:contentDescription="@android:string/yes"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/playblu" />
+
+                    <ImageButton
+                        android:id="@+id/imageButtonStop"
+                        android:layout_width="11dp"
+                        android:layout_height="69dp"
+                        android:layout_weight="1"
+                        android:adjustViewBounds="true"
+                        android:background="#00FFFFFF"
+                        android:contentDescription="@android:string/cancel"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/stopblu" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
