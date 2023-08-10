@@ -1,10 +1,8 @@
 package com.example.progetto;
 
-import android.widget.ImageView;
-
 import java.io.IOException;
 
-public class Otis implements Runnable {
+public class Otis {
     //LungSimulatorInterface simulator;
     //String status;
     //Ventilator ventilator;
@@ -46,30 +44,5 @@ public class Otis implements Runnable {
 
 
 // start stop e status li inserisco nel plot updater o qui, se qui dove?
-
-    @Override
-    public void run() {
-        while (true) {
-            try {
-
-                if (distance <= 10) { // i valori????
-                    ImageView imageView = (ImageView) parentActivity.findViewById(R.id.imageViewSemaforo);
-                    imageView.setImageResource(R.drawable.semverdesupernova);
-
-                }
-                else if (distance>10 && distance < 20) {
-                    ImageView imageView = (ImageView) parentActivity.findViewById(R.id.imageViewSemaforo);
-                    imageView.setImageResource(R.drawable.semgiallosupernova);
-                }
-                else if (distance >= 20 ) {
-                    ImageView imageView = (ImageView) parentActivity.findViewById(R.id.imageViewSemaforo);
-                    imageView.setImageResource(R.drawable.semrossosupernova);
-                }
-            }
-            catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-            }
-            }
 
         }

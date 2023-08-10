@@ -121,6 +121,14 @@
             </LinearLayout>
         </ScrollView>
 
+        <Button
+            android:id="@+id/savepatient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SAVE "
+            android:onClick="getResult"
+            />
+
     </LinearLayout>
 
     <TextView

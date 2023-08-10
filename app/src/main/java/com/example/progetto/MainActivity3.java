@@ -31,6 +31,25 @@ public class MainActivity3 extends AppCompatActivity {
 
     PlotUpdater updater;
     Thread updaterThread;
+// pop up paziente
+    public EditText FirstName;
+    public EditText SecondName;
+    public EditText Age;
+    public Spinner spinner;
+    public EditText Weight;
+    public EditText Height;
+    public EditText Comp;
+    public EditText Res;
+    // pop up ventilatore
+    public EditText PEEP;
+    public EditText fio2;
+    public EditText pmax;
+    public EditText VM;
+    public EditText VMAX;
+    public EditText MinVolume;
+    public EditText IE;
+    public EditText RR;
+
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
@@ -41,9 +60,9 @@ public class MainActivity3 extends AppCompatActivity {
         // FirstNameText = (EditText) findViewById(R.id.FirstNameText);
         // FirstNameView = (TextView) findViewById(R.id.FirstNameView);
 
-      //prima
-      // chart = (LineChart) findViewById(R.id.chart);
-      // chart.getLegend().setEnabled(false);
+        //prima
+        // chart = (LineChart) findViewById(R.id.chart);
+        // chart.getLegend().setEnabled(false);
 
 
         // seconda
@@ -57,24 +76,25 @@ public class MainActivity3 extends AppCompatActivity {
         // bottone start
         imageButtonStart = findViewById(R.id.imageButtonStart);
         imageButtonStart.bringToFront();
-        imageButtonStart.setOnClickListener(new View.OnClickListener(){
+        imageButtonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(imageButtonStart.getBackground().equals(R.drawable.playblu)) {
+                if (imageButtonStart.getBackground().equals(R.drawable.playblu)) {
                     // double R, double C, String gender, int age, double h, double w, double step, MainActivity3 parentActivity
-                    double r = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextRes)).getText()));
-                    double c = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextComp)).getText()));
-                    String gender = ((Spinner)findViewById(R.id.spinner)).getSelectedItem().toString();
-                    int age = Integer.parseInt(String.valueOf(((EditText)findViewById(R.id.editTextAge)).getText()));
-                    double h = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextHeight)).getText())) / 100;
-                    double w = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextWeight)).getText()));;
-                    double RR = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextRR)).getText()));
-                    double IE = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextIE)).getText()));
-                    double PEEP = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextPEEP)).getText()));
-                    double VMAX = Double.parseDouble(String.valueOf(((EditText)findViewById(R.id.editTextVMAX)).getText()));
+                    double r = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextRes)).getText()));
+                    double c = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextComp)).getText()));
+                    String gender = ((Spinner) findViewById(R.id.spinner)).getSelectedItem().toString();
+                    int age = Integer.parseInt(String.valueOf(((EditText) findViewById(R.id.editTextAge)).getText()));
+                    double h = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextHeight)).getText())) / 100;
+                    double w = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextWeight)).getText()));
+                    ;
+                    double RR = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextRR)).getText()));
+                    double IE = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextIE)).getText()));
+                    double PEEP = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextPEEP)).getText()));
+                    double VMAX = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextVMAX)).getText()));
 
                     try {
-                        updater = new PlotUpdater(r, c, gender, age, h, w, 0.1,RR,IE,VMAX,PEEP, (MainActivity3) view.getContext(), (PopActivityPatient) view.getContext(), (PopActivityVentilator) view.getContext());
+                        updater = new PlotUpdater(r, c, gender, age, h, w, 0.1, RR, IE, VMAX, PEEP, (MainActivity3) view.getContext(), (PopActivityPatient) view.getContext(), (PopActivityVentilator) view.getContext());
                         imageButtonStart.setBackgroundResource(R.drawable.pauseblu);
 
 
@@ -83,8 +103,7 @@ public class MainActivity3 extends AppCompatActivity {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                }
-                else {
+                } else {
                     updater.setStatus("Freeze");
                     imageButtonStart.setBackgroundResource(R.drawable.playblu);
 
@@ -104,37 +123,78 @@ public class MainActivity3 extends AppCompatActivity {
         ventilator.bringToFront();
         // BOTTONE imposta azione quando il bottone viene cliccato tutto quello da qui in poi
         imageButtonStop.setOnClickListener(new View.OnClickListener() {
-                                       @Override
-                                       public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
 
-                                           imageButtonStop = (ImageButton) findViewById(R.id.imageButtonStop);
-                                           Intent i = new Intent(getApplicationContext(), PopActivity2.class);
-                                           startActivity(i);
-
-                                       }
-                                   });
-        patient.setOnClickListener(new View.OnClickListener()
-
-            {
-                @Override
-                public void onClick (View view){
-
-                patient = (Button) findViewById(R.id.patient);
-                Intent j = new Intent(getApplicationContext(), PopActivityPatient.class);
-                startActivity(j);
+                imageButtonStop = (ImageButton) findViewById(R.id.imageButtonStop);
+                Intent i = new Intent(getApplicationContext(), PopActivity2.class);
+                startActivity(i);
 
             }
-            });
-                ventilator.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+        });
+        patient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                        ventilator= (Button) findViewById(R.id.ventilator);
-                        Intent k = new Intent(getApplicationContext(), PopActivityVentilator.class);
-                        startActivity(k);
+                patient = (Button) findViewById(R.id.patient);
+                Intent j = new Intent(MainActivity3.this, PopActivityPatient.class);
+                startActivityForResult(j, 2);
+// PROVO PIZZA
+            }
+        });
+        ventilator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                    }
+                ventilator = (Button) findViewById(R.id.ventilator);
+                Intent k = new Intent(MainActivity3.this, PopActivityVentilator.class);
+                startActivityForResult(k, 3);
+
+            }
         });
     }
 
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent myIntent) {
+        super.onActivityResult(requestCode, resultCode, myIntent);
+
+        if (requestCode == 2 && resultCode == MainActivity3.RESULT_OK) {
+            // VALORI DEL PAZIENTE
+
+            if (myIntent.getExtras().getBoolean("Finished")) {
+                FirstName = (EditText) findViewById(R.id.editTextFirstName);
+                SecondName = (EditText) findViewById(R.id.editTextSecondName);
+                Age = (EditText) findViewById(R.id.editTextAge);
+                spinner = (Spinner) findViewById(R.id.spinner);
+                Weight = (EditText) findViewById(R.id.editTextWeight);
+                Height = (EditText) findViewById(R.id.editTextHeight);
+                Comp = (EditText) findViewById(R.id.editTextComp);
+                Res = (EditText) findViewById(R.id.editTextRes);
+            }
+
+        }
+        if (requestCode == 3 && resultCode == MainActivity3.RESULT_OK) {
+            // VALORI DEL PAZIENTE
+
+            if (myIntent.getExtras().getBoolean("Finished")) {
+                PEEP = (EditText) findViewById(R.id.editTextPEEP);
+                fio2 = (EditText) findViewById(R.id.editTextfio2);
+                pmax = (EditText) findViewById(R.id.editTextpmax);
+                VM = (EditText) findViewById(R.id.editTextVM);
+                VMAX = (EditText) findViewById(R.id.editTextVMAX);
+                MinVolume = (EditText) findViewById(R.id.editTextMinVolume);
+                IE = (EditText) findViewById(R.id.editTextIE);
+                RR = (EditText) findViewById(R.id.editTextRR);
+
+            }
+        }
+
+    }
+
+
+
+
 }
+

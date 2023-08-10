@@ -2,6 +2,7 @@ package com.example.progetto;
 
 import android.graphics.Color;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.Entry;
@@ -24,7 +25,7 @@ public class PlotUpdater implements Runnable {
     PopActivityPatient parentActivity2;
     PopActivityVentilator parentActivity3;
 
-    private double ventoutput;
+
 
     public PlotUpdater(double R, double C, String gender, int age, double h, double w, double step,double RR, double IE, double VMAX, double PEEP, MainActivity3 parentActivity, PopActivityPatient parentActivity2, PopActivityVentilator parentActivity3) throws IOException {
         String modelDescription = "---\n" +
@@ -111,9 +112,9 @@ public class PlotUpdater implements Runnable {
                 Log.d("t", "Update pressure chart");
                 updatePressureChart();
 
-               //Otis.OtisFormula.calculatewithOtisFormula(double Res, double Comp, double MinVolume, double RR, double weight, double height,  String gender, PopActivityPatient parentActivity2, PopActivityVentilator parentActivity3, MainActivity3 parentactivity);
+                Otis.OtisFormula.calculatewithOtisFormula(MainActivity3.class);
                Log.d("t", "Update otis chart");
-               // updateOtisChart();
+               calculateOtis();
 
             } else if (status.equals("Stop")) {
                 break;
@@ -122,7 +123,31 @@ public class PlotUpdater implements Runnable {
             }
         }
     }
+// incollo
 
+public void calculateOtis() {
+    while (true) {
+        try {
+
+            if (distance <= 10) { // i valori????
+                ImageView imageView = (ImageView) parentActivity.findViewById(R.id.imageViewSemaforo);
+                imageView.setImageResource(R.drawable.semverdesupernova);
+
+            }
+            else if (distance>10 && distance < 20) {
+                ImageView imageView = (ImageView) parentActivity.findViewById(R.id.imageViewSemaforo);
+                imageView.setImageResource(R.drawable.semgiallosupernova);
+            }
+            else if (distance >= 20 ) {
+                ImageView imageView = (ImageView) parentActivity.findViewById(R.id.imageViewSemaforo);
+                imageView.setImageResource(R.drawable.semrossosupernova);
+            }
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
     public void updateFlowChart() {
         try {
             // Get the values of the last 50 flows measured
