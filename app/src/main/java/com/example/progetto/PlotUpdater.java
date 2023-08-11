@@ -24,10 +24,22 @@ public class PlotUpdater implements Runnable {
     MainActivity3 parentActivity;
     PopActivityPatient parentActivity2;
     PopActivityVentilator parentActivity3;
+    public double Res;
+    public double C;
+    public String gender;
+    public double MinVolume;
+    public double RR;
+    public double weight;
+    public double height;
+    public double IE;
+    public double PEEP;
+    public double fio2;
+    public double pmax;
+    public double VM;
 
+    public double VMAX;
 
-
-    public PlotUpdater(double R, double C, String gender, int age, double h, double w, double step,double RR, double IE, double VMAX, double PEEP, MainActivity3 parentActivity, PopActivityPatient parentActivity2, PopActivityVentilator parentActivity3) throws IOException {
+    public PlotUpdater(double Res, double C, String gender, int age, double h, double w, double step,double RR, double IE, double VMAX, double PEEP, double MinVol, MainActivity3 parentActivity) throws IOException {
         String modelDescription = "---\n" +
                 "schema: 2\n" +
                 "elementsList:\n" +
@@ -68,13 +80,30 @@ public class PlotUpdater implements Runnable {
                 "  y: 1\n" +
                 "  x1: 0 \n" +
                 "  y1: 1";
-        ventilator= new Ventilator(RR,IE, VMAX, PEEP, parentActivity3);
+        ventilator= new Ventilator(RR,IE, VMAX, PEEP);
         // DEVO SCRIVERE LA STESSA RIGA DI CODICE PER IL SIMULATORE CON L'ALTRO POP UP????
         // Build the simulator with simple RC circuit
         simulator = new LungSimulatorInterface(modelDescription);
-        simulator.setRandC(R, C);
+        simulator.setRandC(Res, C);
         simulator.setDemographicData(gender, age, h, w);
         // Check the correctness and completeness of data
+        this.C = C;
+        this.Res = Res;
+        this.gender = gender;
+        this.MinVolume= MinVol;
+        this.RR= RR;
+        this.weight=w;
+        this.height=h;
+        this.IE=IE;
+        this.PEEP=PEEP;
+        this.fio2=fio2;
+        this.pmax=pmax;
+        this.VM=VM;
+        this.VMAX=VMAX;
+
+
+
+
         try {
             simulator.initializeSimulator();
             // Simulation step
@@ -112,9 +141,16 @@ public class PlotUpdater implements Runnable {
                 Log.d("t", "Update pressure chart");
                 updatePressureChart();
 
-                Otis.OtisFormula.calculatewithOtisFormula(MainActivity3.class);
-               Log.d("t", "Update otis chart");
-               calculateOtis();
+                try {
+                    Otis.calculatewithOtisFormula(gender, Res, C, MinVolume, RR, weight, height);
+                   float distance = Otis.OtisChartDistance(MinVolume, RR, weight);
+                   calculateOtis(distance);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                Log.d("t", "Update otis chart");
+
 
             } else if (status.equals("Stop")) {
                 break;
@@ -125,8 +161,8 @@ public class PlotUpdater implements Runnable {
     }
 // incollo
 
-public void calculateOtis() {
-    while (true) {
+public void calculateOtis(float distance) {
+
         try {
 
             if (distance <= 10) { // i valori????
@@ -146,7 +182,7 @@ public void calculateOtis() {
         catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
+
 }
     public void updateFlowChart() {
         try {

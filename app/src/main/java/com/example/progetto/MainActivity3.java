@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,23 +30,24 @@ public class MainActivity3 extends AppCompatActivity {
     PlotUpdater updater;
     Thread updaterThread;
 // pop up paziente
-    public EditText FirstName;
-    public EditText SecondName;
-    public EditText Age;
-    public Spinner spinner;
-    public EditText Weight;
-    public EditText Height;
-    public EditText Comp;
-    public EditText Res;
+    public String FirstName;
+    public String SecondName;
+    public int Age;
+    public String Gender;
+
+    public float Weight;
+    public float Height;
+    public float Comp;
+    public float Res;
     // pop up ventilatore
-    public EditText PEEP;
-    public EditText fio2;
-    public EditText pmax;
-    public EditText VM;
-    public EditText VMAX;
-    public EditText MinVolume;
-    public EditText IE;
-    public EditText RR;
+    public float PEEP;
+    public float fio2;
+    public float pmax;
+    public float VM;
+    public float VMAX;
+    public float MinVolume;
+    public float IE;
+    public float RR;
 
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
@@ -56,13 +55,6 @@ public class MainActivity3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
-
-        // FirstNameText = (EditText) findViewById(R.id.FirstNameText);
-        // FirstNameView = (TextView) findViewById(R.id.FirstNameView);
-
-        //prima
-        // chart = (LineChart) findViewById(R.id.chart);
-        // chart.getLegend().setEnabled(false);
 
 
         // seconda
@@ -77,42 +69,60 @@ public class MainActivity3 extends AppCompatActivity {
         imageButtonStart = findViewById(R.id.imageButtonStart);
         imageButtonStart.bringToFront();
         imageButtonStart.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View view) {
-                if (imageButtonStart.getBackground().equals(R.drawable.playblu)) {
+
                     // double R, double C, String gender, int age, double h, double w, double step, MainActivity3 parentActivity
-                    double r = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextRes)).getText()));
-                    double c = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextComp)).getText()));
-                    String gender = ((Spinner) findViewById(R.id.spinner)).getSelectedItem().toString();
-                    int age = Integer.parseInt(String.valueOf(((EditText) findViewById(R.id.editTextAge)).getText()));
-                    double h = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextHeight)).getText())) / 100;
-                    double w = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextWeight)).getText()));
-                    ;
-                    double RR = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextRR)).getText()));
-                    double IE = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextIE)).getText()));
-                    double PEEP = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextPEEP)).getText()));
-                    double VMAX = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextVMAX)).getText()));
+                    double r = ((MainActivity3) view.getContext()).Res;
+                    // rifaccio per tutti double c = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextComp)).getText()));
+                    String gender = ((MainActivity3) view.getContext()).Gender;
+                    double c = ((MainActivity3) view.getContext()).Comp;
+                    double h = ((MainActivity3) view.getContext()).Height;
+                    double w = ((MainActivity3) view.getContext()).Weight;
+                    int age = ((MainActivity3) view.getContext()).Age;
+                    double RR = ((MainActivity3) view.getContext()).RR;
+                    double IE = ((MainActivity3) view.getContext()).IE;
+                    double PEEP = ((MainActivity3) view.getContext()).PEEP;
+                    // i prossimi 3 non servono mai ?
+                    double fio2 = ((MainActivity3) view.getContext()).fio2;
+                    double pmax = ((MainActivity3) view.getContext()).pmax;
+                    double VM = ((MainActivity3) view.getContext()).VM;
+                    double VMAX = ((MainActivity3) view.getContext()).VMAX;
+                    double MinVolume = ((MainActivity3) view.getContext()).MinVolume;
 
                     try {
-                        updater = new PlotUpdater(r, c, gender, age, h, w, 0.1, RR, IE, VMAX, PEEP, (MainActivity3) view.getContext(), (PopActivityPatient) view.getContext(), (PopActivityVentilator) view.getContext());
-                        imageButtonStart.setBackgroundResource(R.drawable.pauseblu);
+                        updater = new PlotUpdater(r, c, gender, age, h, w, 0.1, RR, IE, VMAX, PEEP, MinVolume, (MainActivity3) view.getContext());
+
+
+                        // imageButtonStart.setBackgroundResource(R.drawable.pauseblu);
 
 
                         updaterThread = new Thread(updater);
                         updaterThread.start();
+                                
+                                
+                          //      updater.setStatus("Freeze");
+                               
+
+                            
+
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                } else {
-                    updater.setStatus("Freeze");
-                    imageButtonStart.setBackgroundResource(R.drawable.playblu);
-
                 }
-            }
+                
+
         });
 
-        // bottone stop
-
+        // bottone pausa
+        ImageButton imageButtonPause = findViewById(R.id.imageButtonPause);
+        imageButtonPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+                                                public void onClick(View view) {
+                                                    updater.setStatus("Freeze");
+                                                }
+                                            });
 
         //BOTTONE trova il bottone//
         imageButtonStop = findViewById(R.id.imageButtonStop);
@@ -139,7 +149,7 @@ public class MainActivity3 extends AppCompatActivity {
                 patient = (Button) findViewById(R.id.patient);
                 Intent j = new Intent(MainActivity3.this, PopActivityPatient.class);
                 startActivityForResult(j, 2);
-// PROVO PIZZA
+
             }
         });
         ventilator.setOnClickListener(new View.OnClickListener() {
@@ -161,34 +171,28 @@ public class MainActivity3 extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, myIntent);
 
         if (requestCode == 2 && resultCode == MainActivity3.RESULT_OK) {
-            // VALORI DEL PAZIENTE
+            FirstName = myIntent.getStringExtra("FirstName");
+            Gender = myIntent.getStringExtra("Gender");
+            SecondName = myIntent.getStringExtra("SecondName");
+            Age = myIntent.getIntExtra("Age",18);
+            Weight = myIntent.getFloatExtra("Weight",80);
+            Height = myIntent.getFloatExtra("Height",1.5f);
+            Comp = myIntent.getFloatExtra("Comp",1);
+            Res = myIntent.getFloatExtra("Res",10);
 
-            if (myIntent.getExtras().getBoolean("Finished")) {
-                FirstName = (EditText) findViewById(R.id.editTextFirstName);
-                SecondName = (EditText) findViewById(R.id.editTextSecondName);
-                Age = (EditText) findViewById(R.id.editTextAge);
-                spinner = (Spinner) findViewById(R.id.spinner);
-                Weight = (EditText) findViewById(R.id.editTextWeight);
-                Height = (EditText) findViewById(R.id.editTextHeight);
-                Comp = (EditText) findViewById(R.id.editTextComp);
-                Res = (EditText) findViewById(R.id.editTextRes);
-            }
 
         }
         if (requestCode == 3 && resultCode == MainActivity3.RESULT_OK) {
-            // VALORI DEL PAZIENTE
+            PEEP = myIntent.getFloatExtra("PEEP",5);
+            fio2 = myIntent.getFloatExtra("fio2",30);
+            pmax = myIntent.getFloatExtra("pmax",21);
+            VM = myIntent.getFloatExtra("VM",93);
+            VMAX = myIntent.getFloatExtra("VMAX",35);
+            MinVolume = myIntent.getFloatExtra("MinVolume",9);
+            IE = myIntent.getFloatExtra("IE",0.5f);
+            RR = myIntent.getFloatExtra("RR",19);
 
-            if (myIntent.getExtras().getBoolean("Finished")) {
-                PEEP = (EditText) findViewById(R.id.editTextPEEP);
-                fio2 = (EditText) findViewById(R.id.editTextfio2);
-                pmax = (EditText) findViewById(R.id.editTextpmax);
-                VM = (EditText) findViewById(R.id.editTextVM);
-                VMAX = (EditText) findViewById(R.id.editTextVMAX);
-                MinVolume = (EditText) findViewById(R.id.editTextMinVolume);
-                IE = (EditText) findViewById(R.id.editTextIE);
-                RR = (EditText) findViewById(R.id.editTextRR);
 
-            }
         }
 
     }

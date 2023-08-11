@@ -18,7 +18,7 @@ public class Ventilator implements Runnable{
     MainActivity3 parentActivity;
     PopActivityVentilator parentActivity3;
     PopActivityPatient parentActivity2;
-    public Ventilator(double RR, double IE, double VMAX, double PEEP, PopActivityVentilator parentActivity) throws
+    public Ventilator(double RR, double IE, double VMAX, double PEEP) throws
             IOException
     {this.RR=RR; this.IE=IE; this.VMAX=VMAX; this.PEEP=PEEP; // this.parentActivity3=parentActivity3; this.parentActivity2= parentActivity2;
     } // anche qui come metto tutti i pop up? con una lista progressiva di this? o basta così?

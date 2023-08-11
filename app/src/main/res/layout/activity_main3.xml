@@ -198,7 +198,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="132dp"
+                    android:layout_width="259dp"
                     android:layout_height="69dp"
                     android:layout_gravity="center">
 
@@ -223,6 +223,15 @@
                         android:contentDescription="@android:string/cancel"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/stopblu" />
+
+                    <ImageButton
+                        android:id="@+id/imageButtonPause"
+                        android:layout_width="16dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@android:string/copy"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/pauseblu" />
 
 
                 </LinearLayout>

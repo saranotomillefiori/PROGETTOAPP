@@ -110,7 +110,7 @@
                 <EditText
                     android:id="@+id/editTextRes"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="wrap_content"
 
                     android:ems="10"
                     android:hint="Resistance"
@@ -118,16 +118,15 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
+                <Button
+                    android:id="@+id/savepatient"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="getResult"
+                    android:text="SAVE " />
+
             </LinearLayout>
         </ScrollView>
-
-        <Button
-            android:id="@+id/savepatient"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SAVE "
-            android:onClick="getResult"
-            />
 
     </LinearLayout>
 
