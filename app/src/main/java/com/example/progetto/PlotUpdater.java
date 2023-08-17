@@ -1,6 +1,7 @@
 package com.example.progetto;
 
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -22,8 +23,7 @@ public class PlotUpdater implements Runnable {
     String status;
     Ventilator ventilator;
     MainActivity3 parentActivity;
-    PopActivityPatient parentActivity2;
-    PopActivityVentilator parentActivity3;
+
     public double Res;
     public double C;
     public String gender;
@@ -33,10 +33,6 @@ public class PlotUpdater implements Runnable {
     public double height;
     public double IE;
     public double PEEP;
-    public double fio2;
-    public double pmax;
-    public double VM;
-
     public double VMAX;
 
     public PlotUpdater(double Res, double C, String gender, int age, double h, double w, double step,double RR, double IE, double VMAX, double PEEP, double MinVol, MainActivity3 parentActivity) throws IOException {
@@ -96,9 +92,6 @@ public class PlotUpdater implements Runnable {
         this.height=h;
         this.IE=IE;
         this.PEEP=PEEP;
-        this.fio2=fio2;
-        this.pmax=pmax;
-        this.VM=VM;
         this.VMAX=VMAX;
 
 
@@ -135,7 +128,7 @@ public class PlotUpdater implements Runnable {
     public void run() {
         while (true) {
             if (status.equals("Start")) {
-                simulator.simulationStep(ventilator.getvalue()); // proviamo a cambiare con Get
+                simulator.simulationStep(ventilator.getvalue());
                 Log.d("t", "Update flow chart");
                 updateFlowChart();
                 Log.d("t", "Update pressure chart");
@@ -159,22 +152,21 @@ public class PlotUpdater implements Runnable {
             }
         }
     }
-// incollo
 
 public void calculateOtis(float distance) {
 
         try {
 
-            if (distance <= 10) { // i valori????
+            if (distance <= 3) { // i valori????
                 ImageView imageView = (ImageView) parentActivity.findViewById(R.id.imageViewSemaforo);
                 imageView.setImageResource(R.drawable.semverdesupernova);
 
             }
-            else if (distance>10 && distance < 20) {
+            else if (distance>3 && distance < 5) {
                 ImageView imageView = (ImageView) parentActivity.findViewById(R.id.imageViewSemaforo);
                 imageView.setImageResource(R.drawable.semgiallosupernova);
             }
-            else if (distance >= 20 ) {
+            else if (distance >= 5 ) {
                 ImageView imageView = (ImageView) parentActivity.findViewById(R.id.imageViewSemaforo);
                 imageView.setImageResource(R.drawable.semrossosupernova);
             }
@@ -196,17 +188,27 @@ public void calculateOtis(float distance) {
                 index++;
             }
             // Build the dataset
-            LineDataSet dataSet3 = new LineDataSet(entries3, "AirFlow / Time"); // add entries to dataset
+            LineDataSet dataSet3 = new LineDataSet(entries3, "AirFlow over Time");
             dataSet3.setColor(Color.GREEN);
             dataSet3.setDrawCircles(false);
             dataSet3.setDrawValues(false);
             dataSet3.setValueTextColor(Color.BLACK);
+            dataSet3.setLineWidth(3);
+            int color = R.color.blu;
+            dataSet3.setColor(color);
+
+
+
+
             // Set the CHART3 dataset to that previously build
             LineData lineData3 = new LineData(dataSet3);
-            parentActivity.chart3.setData(lineData3);  // anche qui come posso fare??
+            parentActivity.chart3.setData(lineData3);
             parentActivity.chart3.invalidate();
             Description description = new Description();
             description.setText("Air Flow");
+            description.setTextSize(18);
+            description.setTextColor(color);
+            description.setTextAlign(Paint.Align.RIGHT);
             parentActivity.chart3.setDescription(description);
 
 
@@ -216,9 +218,7 @@ public void calculateOtis(float distance) {
 
     public void updatePressureChart() {
         try {
-            // Get the values of the last 50 pressures measured
             List<Double> pressureValues = simulator.getPressure();
-            // Build the list of entries
             List<Entry> entries2 = new ArrayList<Entry>();
             int index = 0;
             for (double pressure : pressureValues) {
@@ -226,17 +226,24 @@ public void calculateOtis(float distance) {
                 index++;
             }
             // Build the dataset
-            LineDataSet dataSet2 = new LineDataSet(entries2, "Pressure / Time"); // add entries to dataset
+            LineDataSet dataSet2 = new LineDataSet(entries2, "Pressure / Time");
             dataSet2.setColor(Color.BLUE);
             dataSet2.setDrawCircles(false);
             dataSet2.setDrawValues(false);
             dataSet2.setValueTextColor(Color.BLACK);
+            dataSet2.setLabel("AIRFLOW OVER TIME");
+            dataSet2.setLineWidth(3);
+            int color = R.color.blu;
+            dataSet2.setColor(color);
             // Set the CHART2 dataset to that previously build
             LineData lineData2 = new LineData(dataSet2);
             parentActivity.chart2.setData(lineData2);
             parentActivity.chart2.invalidate();
             Description description = new Description();
             description.setText("Pressure");
+            description.setTextSize(18);
+            description.setTextColor(color);
+
             parentActivity.chart2.setDescription(description);
         } catch (IndexOutOfBoundsException ex) {
         }

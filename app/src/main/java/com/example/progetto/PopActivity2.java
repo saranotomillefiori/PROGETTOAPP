@@ -1,11 +1,11 @@
 package com.example.progetto;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class PopActivity2 extends AppCompatActivity {
 
@@ -26,6 +26,15 @@ public class PopActivity2 extends AppCompatActivity {
         params.y = -20;
 
         getWindow().setAttributes(params);
+        /* QUANDO CLICCHIAMO RESET CANCELLA TUTTO E RICOMINCIA, CHIUDI L'ACTIVITY
+        Button Reset = findViewById(R.id.button3);
+        Reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopActivityPatient.FirstName.setText("");
+
+            }
+        });*/
 
 
     }

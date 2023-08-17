@@ -11,8 +11,13 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 public class PopActivityPatient extends AppCompatActivity {
 
+    /*public void hideSoftKeyboard(View view){
+        InputMethodManager imm =(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +36,10 @@ public class PopActivityPatient extends AppCompatActivity {
         params.y = -20;
 
         getWindow().setAttributes(params);
+        //hideSoftKeyboard(View this);
 
     }
+
     public void getResult(View view) {
         Intent returnIntent = new Intent();
         returnIntent.putExtra("Finished", true); // Puoi passare dati aggiuntivi alla main activity tramite l'intent

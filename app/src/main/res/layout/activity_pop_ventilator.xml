@@ -44,39 +44,6 @@
                     android:textStyle="bold"/>
 
                 <EditText
-                    android:id="@+id/editTextfio2"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-
-                    android:ems="10"
-                    android:hint="FiO2"
-                    android:textColor="#000000"
-                    android:textSize="20sp"
-                    android:textStyle="bold"/>
-
-                <EditText
-                    android:id="@+id/editTextpmax"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-
-                    android:ems="10"
-                    android:hint="Pmax"
-                    android:textColor="#000000"
-                    android:textSize="20sp"
-                    android:textStyle="bold"/>
-
-                <EditText
-                    android:id="@+id/editTextVM"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-
-                    android:ems="10"
-                    android:hint="%VM"
-                    android:textColor="#000000"
-                    android:textSize="20sp"
-                    android:textStyle="bold"/>
-
-                <EditText
                     android:id="@+id/editTextVMAX"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
