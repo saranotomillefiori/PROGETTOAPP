@@ -202,7 +202,7 @@ public class PlotUpdater implements Runnable {
         description.setTextSize(18);
         description.setTextColor(color);
         description.setTextAlign(Paint.Align.RIGHT);
-        parentActivity.chart2.setDescription(description);
+        parentActivity.chart3.setDescription(description);
     }
 
     public void updatePressureChart() {
@@ -231,6 +231,6 @@ public class PlotUpdater implements Runnable {
         description.setText("Pressure");
         description.setTextSize(18);
         description.setTextColor(color);
-        parentActivity.chart3.setDescription(description);
+        parentActivity.chart2.setDescription(description);
     }
 }
