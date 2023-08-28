@@ -10,19 +10,24 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * This class represents the pop up activity used bu users for setting the
+ * ventilation parameters.
+ */
+
 public class PopActivityVentilator extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pop_ventilator);
-        DisplayMetrics dm= new DisplayMetrics();
+        DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width*.8), (int)(height*.7));
+        getWindow().setLayout((int) (width * .8), (int) (height * .7));
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.x = 0;
@@ -30,13 +35,19 @@ public class PopActivityVentilator extends AppCompatActivity {
 
         getWindow().setAttributes(params);
     }
+
     public void getResult(View view) {
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("PEEP",  Float.parseFloat(String.valueOf(((EditText) findViewById(R.id.editTextPEEP)).getText())) );
-        returnIntent.putExtra("VMAX", Float.parseFloat(String.valueOf(((EditText) findViewById(R.id.editTextVMAX)).getText())) );
-        returnIntent.putExtra("MinVolume", Float.parseFloat(String.valueOf(((EditText) findViewById(R.id.editTextMinVolume)).getText())) );
-        returnIntent.putExtra("IE", Float.parseFloat(String.valueOf(((EditText) findViewById(R.id.editTextIE)).getText())) );
-        returnIntent.putExtra("RR", Float.parseFloat(String.valueOf(((EditText) findViewById(R.id.editTextRR)).getText())) );
+        returnIntent.putExtra("PEEP",
+                Float.parseFloat(String.valueOf(((EditText) findViewById(R.id.editTextPEEP)).getText())));
+        returnIntent.putExtra("VMAX",
+                Float.parseFloat(String.valueOf(((EditText) findViewById(R.id.editTextVMAX)).getText())));
+        returnIntent.putExtra("MinVolume",
+                Float.parseFloat(String.valueOf(((EditText) findViewById(R.id.editTextMinVolume)).getText())));
+        returnIntent.putExtra("IE",
+                Float.parseFloat(String.valueOf(((EditText) findViewById(R.id.editTextIE)).getText())));
+        returnIntent.putExtra("RR",
+                Float.parseFloat(String.valueOf(((EditText) findViewById(R.id.editTextRR)).getText())));
         setResult(MainActivity3.RESULT_OK, returnIntent);
         finish();
     }
