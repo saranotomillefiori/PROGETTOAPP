@@ -2,6 +2,7 @@ package com.example.progetto;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,15 +22,14 @@ public class MainActivity3 extends AppCompatActivity {
 
     Button patient;
     Button ventilator;
-    //EditText FirstNameText;
-    //TextView FirstNameView;
+
     public LineChart chart;
     public LineChart chart3;
     public LineChart chart2;
 
     PlotUpdater updater;
     Thread updaterThread;
-// pop up paziente
+
     public String FirstName;
     public String SecondName;
     public int Age;
@@ -39,7 +39,7 @@ public class MainActivity3 extends AppCompatActivity {
     public float Height;
     public float Comp;
     public float Res;
-    // pop up ventilatore
+
     public float PEEP;
     public float fio2;
     public float pmax;
@@ -162,6 +162,38 @@ public class MainActivity3 extends AppCompatActivity {
 
             }
         });
+
+        SharedPreferences sharedPreferences = getSharedPreferences("ResetPrefs", MODE_PRIVATE);
+        String resetFlag = sharedPreferences.getString("resetFlag", "");
+
+
+
+        if ("reset".equals(resetFlag)) {
+            // Reset the string values
+            FirstName = "FirstName";
+            SecondName = "SecondName";
+            Gender = "Gender";
+            Age = 18;
+            Weight = 80;
+            Height = 1.5f;
+            Comp = 1;
+            Res = 10;
+            PEEP = 5;
+            VMAX = 35;
+            MinVolume = 9;
+            IE = 0.5f;
+            RR = 19;
+
+
+
+
+            // Reset the flag
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("resetFlag", "");
+            editor.apply();
+        }
+
+
     }
 
 
@@ -184,9 +216,6 @@ public class MainActivity3 extends AppCompatActivity {
         }
         if (requestCode == 3 && resultCode == MainActivity3.RESULT_OK) {
             PEEP = myIntent.getFloatExtra("PEEP",5);
-            fio2 = myIntent.getFloatExtra("fio2",30);
-            pmax = myIntent.getFloatExtra("pmax",21);
-            VM = myIntent.getFloatExtra("VM",93);
             VMAX = myIntent.getFloatExtra("VMAX",35);
             MinVolume = myIntent.getFloatExtra("MinVolume",9);
             IE = myIntent.getFloatExtra("IE",0.5f);
@@ -196,9 +225,6 @@ public class MainActivity3 extends AppCompatActivity {
         }
 
     }
-
-
-
 
 }
 

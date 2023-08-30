@@ -77,7 +77,6 @@ public class PlotUpdater implements Runnable {
                 "  x1: 0 \n" +
                 "  y1: 1";
         ventilator= new Ventilator(RR,IE, VMAX, PEEP);
-        // DEVO SCRIVERE LA STESSA RIGA DI CODICE PER IL SIMULATORE CON L'ALTRO POP UP????
         // Build the simulator with simple RC circuit
         simulator = new LungSimulatorInterface(modelDescription);
         simulator.setRandC(Res, C);
@@ -108,7 +107,7 @@ public class PlotUpdater implements Runnable {
 
             status = "Start";
             // Set the parent activity
-            this.parentActivity = parentActivity; // come faccio a cambiarlo e passare contemporaneamente i parametri dai due pop up?
+            this.parentActivity = parentActivity;
         } catch (InspireException ex) {
             Log.d("t", ex.getMessage());
             status = "Stop";
@@ -157,16 +156,16 @@ public void calculateOtis(float distance) {
 
         try {
 
-            if (distance <= 3) { // i valori????
+            if (distance <= 370) {
                 ImageView imageView = (ImageView) parentActivity.findViewById(R.id.imageViewSemaforo);
                 imageView.setImageResource(R.drawable.semverdesupernova);
 
             }
-            else if (distance>3 && distance < 5) {
+            else if (distance>370 && distance < 371.75) {
                 ImageView imageView = (ImageView) parentActivity.findViewById(R.id.imageViewSemaforo);
                 imageView.setImageResource(R.drawable.semgiallosupernova);
             }
-            else if (distance >= 5 ) {
+            else if (distance >= 371.75 ) {
                 ImageView imageView = (ImageView) parentActivity.findViewById(R.id.imageViewSemaforo);
                 imageView.setImageResource(R.drawable.semrossosupernova);
             }
@@ -196,6 +195,8 @@ public void calculateOtis(float distance) {
             dataSet3.setLineWidth(3);
             int color = R.color.blu;
             dataSet3.setColor(color);
+
+
 
 
 
