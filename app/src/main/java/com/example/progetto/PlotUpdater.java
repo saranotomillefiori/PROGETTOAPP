@@ -17,6 +17,14 @@ import java.util.List;
 import lungsimulator.exceptions.InspireException;
 import lungsimulator.interfaceclass.LungSimulatorInterface;
 
+/**
+ * This class implements the business logic that updates the three available
+ * plots:
+ * - Pressure
+ * - Flow
+ * - Otis semaphore
+ */
+
 public class PlotUpdater implements Runnable {
 
     LungSimulatorInterface simulator;
@@ -24,77 +32,79 @@ public class PlotUpdater implements Runnable {
     Ventilator ventilator;
     MainActivity3 parentActivity;
 
-    public double Res;
-    public double C;
+    public double res;
+    public double c;
     public String gender;
-    public double MinVolume;
-    public double RR;
+    public double minVolume;
+    public double rr;
     public double weight;
     public double height;
-    public double IE;
-    public double PEEP;
-    public double VMAX;
+    public double ie;
+    public double peep;
+    public double vMax;
 
-    public PlotUpdater(double Res, double C, String gender, int age, double h, double w, double step,double RR, double IE, double VMAX, double PEEP, double MinVol, MainActivity3 parentActivity) throws IOException {
-        String modelDescription = "---\n" +
-                "schema: 2\n" +
-                "elementsList:\n" +
-                "- elementName: Resistance\n" +
-                "  associatedFormula:\n" +
-                "    isTimeDependent: false\n" +
-                "    isExternal: false\n" +
-                "    formula: resistance1\n" +
-                "    variables:\n" +
-                "    - resistance1\n" +
-                "  type: ResistorElm\n" +
-                "  x: 0\n" +
-                "  y: 1\n" +
-                "  x1: 2 \n" +
-                "  y1: 1\n" +
-                "- elementName: Compliance\n" +
-                "  associatedFormula:\n" +
-                "    isTimeDependent: false\n" +
-                "    isExternal: false\n" +
-                "    formula: capacitor1\n" +
-                "    variables:\n" +
-                "    - capacitor1\n" +
-                "  type: CapacitorElm\n" +
-                "  x: 2\n" +
-                "  y: 1\n" +
-                "  x1: 4 \n" +
-                "  y1: 1\n" +
-                "  showLeft: true\n" +
-                "  idLeft: Alveoli\n" +
-                "  showRight: true\n" +
-                "  idRight: Intrathoracic Pressure\n" +
-                "- elementName: Ventilator\n" +
-                "  associatedFormula:\n" +
-                "    isTimeDependent: false\n" +
-                "    isExternal: true\n" +
-                "  type: ExternalVoltageElm\n" +
-                "  x: 4\n" +
-                "  y: 1\n" +
-                "  x1: 0 \n" +
-                "  y1: 1";
-        ventilator= new Ventilator(RR,IE, VMAX, PEEP);
+    public PlotUpdater(double res, double c, String gender, int age, double h,
+                       double w, double step, double rr, double ie, double vMax,
+                       double peep, double minVol, MainActivity3 parentActivity)
+            throws IOException {
+        String modelDescription = """
+                ---
+                schema: 2
+                elementsList:
+                - elementName: Resistance
+                  associatedFormula:
+                    isTimeDependent: false
+                    isExternal: false
+                    formula: resistance1
+                    variables:
+                    - resistance1
+                  type: ResistorElm
+                  x: 0
+                  y: 1
+                  x1: 2\s
+                  y1: 1
+                - elementName: Compliance
+                  associatedFormula:
+                    isTimeDependent: false
+                    isExternal: false
+                    formula: capacitor1
+                    variables:
+                    - capacitor1
+                  type: CapacitorElm
+                  x: 2
+                  y: 1
+                  x1: 4\s
+                  y1: 1
+                  showLeft: true
+                  idLeft: Alveoli
+                  showRight: true
+                  idRight: Intrathoracic Pressure
+                - elementName: Ventilator
+                  associatedFormula:
+                    isTimeDependent: false
+                    isExternal: true
+                  type: ExternalVoltageElm
+                  x: 4
+                  y: 1
+                  x1: 0\s
+                  y1: 1""";
+        ventilator = new Ventilator(rr, ie, vMax, peep);
+        // DEVO SCRIVERE LA STESSA RIGA DI CODICE PER IL SIMULATORE CON L'ALTRO POP UP????
         // Build the simulator with simple RC circuit
         simulator = new LungSimulatorInterface(modelDescription);
-        simulator.setRandC(Res, C);
+        simulator.setRandC(res, c);
         simulator.setDemographicData(gender, age, h, w);
         // Check the correctness and completeness of data
-        this.C = C;
-        this.Res = Res;
+        this.c = c;
+        this.res = res;
         this.gender = gender;
-        this.MinVolume= MinVol;
-        this.RR= RR;
-        this.weight=w;
-        this.height=h;
-        this.IE=IE;
-        this.PEEP=PEEP;
-        this.VMAX=VMAX;
-
-
-
+        this.minVolume = minVol;
+        this.rr = rr;
+        this.weight = w;
+        this.height = h;
+        this.ie = ie;
+        this.peep = peep;
+        this.vMax = vMax;
 
         try {
             simulator.initializeSimulator();
@@ -102,8 +112,8 @@ public class PlotUpdater implements Runnable {
             simulator.setStep(step);
             // Start the simulation and set the initial time
             simulator.startSimulation();
-            Thread Vventilator= new Thread(ventilator);
-            Vventilator.start();
+            Thread vVentilator = new Thread(ventilator);
+            vVentilator.start();
 
             status = "Start";
             // Set the parent activity
@@ -127,27 +137,22 @@ public class PlotUpdater implements Runnable {
     public void run() {
         while (true) {
             if (status.equals("Start")) {
-                simulator.simulationStep(ventilator.getvalue());
+                simulator.simulationStep(ventilator.getValue());
                 Log.d("t", "Update flow chart");
                 updateFlowChart();
                 Log.d("t", "Update pressure chart");
                 updatePressureChart();
-
+                Log.d("t", "Update otis chart");
                 try {
-                    Otis.calculatewithOtisFormula(gender, Res, C, MinVolume, RR, weight, height);
-                   float distance = Otis.OtisChartDistance(MinVolume, RR, weight);
-                   calculateOtis(distance);
+                    Otis.calculatewithOtisFormula(
+                            gender, res, c, minVolume, rr, weight, height);
+                    float distance = Otis.OtisChartDistance(minVolume, rr, weight);
+                    calculateOtis(distance);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-
-                Log.d("t", "Update otis chart");
-
-
             } else if (status.equals("Stop")) {
                 break;
-            } else if (status.equals("Freeze")) {
-                // Do nothing
             }
         }
     }
@@ -173,82 +178,65 @@ public void calculateOtis(float distance) {
         catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
 
-}
     public void updateFlowChart() {
-        try {
-            // Get the values of the last 50 flows measured
-            List<Double> flowValues = simulator.getFlow();
-            // Build the list of entries
-            List<Entry> entries3 = new ArrayList<Entry>();
-            int index = 0;
-            for (double flow : flowValues) {
-                entries3.add(new Entry(index, (float) flow));
-                index++;
-            }
-            // Build the dataset
-            LineDataSet dataSet3 = new LineDataSet(entries3, "AirFlow over Time");
-            dataSet3.setColor(Color.GREEN);
-            dataSet3.setDrawCircles(false);
-            dataSet3.setDrawValues(false);
-            dataSet3.setValueTextColor(Color.BLACK);
-            dataSet3.setLineWidth(3);
-            int color = R.color.blu;
-            dataSet3.setColor(color);
-
-
-
-
-
-
-            // Set the CHART3 dataset to that previously build
-            LineData lineData3 = new LineData(dataSet3);
-            parentActivity.chart3.setData(lineData3);
-            parentActivity.chart3.invalidate();
-            Description description = new Description();
-            description.setText("Air Flow");
-            description.setTextSize(18);
-            description.setTextColor(color);
-            description.setTextAlign(Paint.Align.RIGHT);
-            parentActivity.chart3.setDescription(description);
-
-
-        } catch (IndexOutOfBoundsException ex) {
+        // Get the values of the last 50 flows measured
+        List<Double> flowValues = simulator.getFlow();
+        // Build the list of entries
+        List<Entry> entries3 = new ArrayList<>();
+        int index = 0;
+        for (double flow : flowValues) {
+            entries3.add(new Entry(index, (float) flow));
+            index++;
         }
+        // Build the dataset
+        LineDataSet dataSet3 = new LineDataSet(entries3, "AirFlow over Time");
+        dataSet3.setColor(Color.GREEN);
+        dataSet3.setDrawCircles(false);
+        dataSet3.setDrawValues(false);
+        dataSet3.setValueTextColor(Color.BLACK);
+        dataSet3.setLineWidth(3);
+        int color = R.color.blu;
+        dataSet3.setColor(color);
+        // Set the CHART3 dataset to that previously build
+        LineData lineData3 = new LineData(dataSet3);
+        parentActivity.chart3.setData(lineData3);
+        parentActivity.chart3.invalidate();
+        Description description = new Description();
+        description.setText("Air Flow");
+        description.setTextSize(18);
+        description.setTextColor(color);
+        description.setTextAlign(Paint.Align.RIGHT);
+        parentActivity.chart3.setDescription(description);
     }
 
     public void updatePressureChart() {
-        try {
-            List<Double> pressureValues = simulator.getPressure();
-            List<Entry> entries2 = new ArrayList<Entry>();
-            int index = 0;
-            for (double pressure : pressureValues) {
-                entries2.add(new Entry(index, (float) pressure));
-                index++;
-            }
-            // Build the dataset
-            LineDataSet dataSet2 = new LineDataSet(entries2, "Pressure / Time");
-            dataSet2.setColor(Color.BLUE);
-            dataSet2.setDrawCircles(false);
-            dataSet2.setDrawValues(false);
-            dataSet2.setValueTextColor(Color.BLACK);
-            dataSet2.setLabel("AIRFLOW OVER TIME");
-            dataSet2.setLineWidth(3);
-            int color = R.color.blu;
-            dataSet2.setColor(color);
-            // Set the CHART2 dataset to that previously build
-            LineData lineData2 = new LineData(dataSet2);
-            parentActivity.chart2.setData(lineData2);
-            parentActivity.chart2.invalidate();
-            Description description = new Description();
-            description.setText("Pressure");
-            description.setTextSize(18);
-            description.setTextColor(color);
-
-            parentActivity.chart2.setDescription(description);
-        } catch (IndexOutOfBoundsException ex) {
+        List<Double> pressureValues = simulator.getPressure();
+        List<Entry> entries2 = new ArrayList<>();
+        int index = 0;
+        for (double pressure : pressureValues) {
+            entries2.add(new Entry(index, (float) pressure));
+            index++;
         }
+        // Build the dataset
+        LineDataSet dataSet2 = new LineDataSet(entries2, "Pressure / Time");
+        dataSet2.setColor(Color.BLUE);
+        dataSet2.setDrawCircles(false);
+        dataSet2.setDrawValues(false);
+        dataSet2.setValueTextColor(Color.BLACK);
+        dataSet2.setLabel("PRESSURE OVER TIME");
+        dataSet2.setLineWidth(3);
+        int color = R.color.blu;
+        dataSet2.setColor(color);
+        // Set the CHART2 dataset to that previously build
+        LineData lineData2 = new LineData(dataSet2);
+        parentActivity.chart2.setData(lineData2);
+        parentActivity.chart2.invalidate();
+        Description description = new Description();
+        description.setText("Pressure");
+        description.setTextSize(18);
+        description.setTextColor(color);
+        parentActivity.chart2.setDescription(description);
     }
-
-
 }

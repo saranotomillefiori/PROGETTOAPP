@@ -1,47 +1,60 @@
 package com.example.progetto;
 
+/**
+ * Class handling the ventilator. It is basically a loop that changes
+ * the returned value based on the inspiratory/expiratory status
+ */
 
-import java.io.IOException;
-
-import lungsimulator.interfaceclass.LungSimulatorInterface;
-
-public class Ventilator implements Runnable{
-    LungSimulatorInterface simulator;
+public class Ventilator implements Runnable {
     int value;
-    private double VMAX;
-    private double PEEP;
-    private double RR;
-    private double IE;
+    private final double vMax;
+    private final double peep;
+    private final double rr;
+    private final double ie;
+    private String status;
 
-   // String status;
+    public Ventilator(double rr, double ie, double vMax, double peep) {
+        this.rr = rr;
+        this.ie = ie;
+        this.vMax = vMax;
+        this.peep = peep;
+    }
 
-    MainActivity3 parentActivity;
-    PopActivityVentilator parentActivity3;
-    PopActivityPatient parentActivity2;
-    public Ventilator(double RR, double IE, double VMAX, double PEEP) throws
-            IOException
-    {this.RR=RR; this.IE=IE; this.VMAX=VMAX; this.PEEP=PEEP; // this.parentActivity3=parentActivity3; this.parentActivity2= parentActivity2;
-    } // anche qui come metto tutti i pop up? con una lista progressiva di this? o basta così?
-    public int getvalue()  {return value;}
+    public int getValue() {
+        return value;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public void run() {
-        while (true) { // il true poi quando funziona lo cambiamo con una variabile boolean che richiama i bottoni, così da fare andare il run solo quando si preme il bottone e stopparlo se necessario
-            value = (int)VMAX; //capiamo come si richiama il dato dall'altra pagina
+        this.status = "START";
+        while (this.status.equals("START")) {
+            value = (int) this.vMax;
             try {
-                Thread.sleep((int) ((60/RR)/(1+IE))); // inspiro // i grafici vanno bene così?
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                // ANDREA: Thread.sleep receives the time expressed in milliseconds,
+                // thus it must be multiplied per 1000
 
-            }
-            value =(int)PEEP;
-            try {
-                Thread.sleep((int)((60/RR)*(1-(1/(1+IE))))); // espiro
+                // Inspiration
+                Thread.sleep((int) ((60 / rr) / (1 + ie)) * 1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        }
+            value = (int) this.peep;
+            try {
+                // ANDREA: Thread.sleep receives the time expressed in milliseconds,
+                // thus it must be multiplied per 1000
+
+                // Expiration
+                Thread.sleep((int) ((60 / rr) * (1 - (1 / (1 + ie)))) * 1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
+}
 
 
 

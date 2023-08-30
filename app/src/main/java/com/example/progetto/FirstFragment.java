@@ -11,16 +11,19 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.progetto.databinding.FragmentFirstBinding;
 
+/**
+ * ANDREA: Do you really need this class?
+ * It seems that it has been inherited by some other exercise...
+ */
+
 public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-
+            @NonNull LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
@@ -28,7 +31,6 @@ public class FirstFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
