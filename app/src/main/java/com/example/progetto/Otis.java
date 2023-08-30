@@ -25,7 +25,8 @@ public class Otis {
         }
 
     public static float OtisChartDistance(double VE, double RR, double weight){
-        double tidalVolume = 4.4 * weight;
+        //double tidalVolume = 4.4 * weight;
+        double tidalVolume = 0.1 * weight;
         return (float)Math.sqrt((RR*RR + f - 2*f*RR + (VE / RR)*(VE / RR)+ tidalVolume*tidalVolume - (2*tidalVolume*VE) / RR ));
         }
 }

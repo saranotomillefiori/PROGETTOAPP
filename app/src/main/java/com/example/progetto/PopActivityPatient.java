@@ -36,6 +36,9 @@ public class PopActivityPatient extends AppCompatActivity {
         params.y = -20;
 
         getWindow().setAttributes(params);
+
+        //Log.d("AA", String.valueOf(getIntent().getIntExtra("Age", 0)));
+        //((EditText) findViewById(R.id.editTextAge)).setText(getIntent().getIntExtra("Age", 0));
     }
 
     public void getResult(View view) {

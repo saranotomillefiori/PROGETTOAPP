@@ -73,45 +73,35 @@ public class MainActivity3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                    // double R, double C, String gender, int age, double h, double w, double step, MainActivity3 parentActivity
-                    double r = ((MainActivity3) view.getContext()).Res;
-                    // rifaccio per tutti double c = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextComp)).getText()));
-                    String gender = ((MainActivity3) view.getContext()).Gender;
-                    double c = ((MainActivity3) view.getContext()).Comp;
-                    double h = ((MainActivity3) view.getContext()).Height;
-                    double w = ((MainActivity3) view.getContext()).Weight;
-                    int age = ((MainActivity3) view.getContext()).Age;
-                    double RR = ((MainActivity3) view.getContext()).RR;
-                    double IE = ((MainActivity3) view.getContext()).IE;
-                    double PEEP = ((MainActivity3) view.getContext()).PEEP;
-                    // i prossimi 3 non servono mai ?
-                    double fio2 = ((MainActivity3) view.getContext()).fio2;
-                    double pmax = ((MainActivity3) view.getContext()).pmax;
-                    double VM = ((MainActivity3) view.getContext()).VM;
-                    double VMAX = ((MainActivity3) view.getContext()).VMAX;
-                    double MinVolume = ((MainActivity3) view.getContext()).MinVolume;
+                // double R, double C, String gender, int age, double h, double w, double step, MainActivity3 parentActivity
+                double r = ((MainActivity3) view.getContext()).Res;
+                // rifaccio per tutti double c = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextComp)).getText()));
+                String gender = ((MainActivity3) view.getContext()).Gender;
+                double c = ((MainActivity3) view.getContext()).Comp;
+                double h = ((MainActivity3) view.getContext()).Height;
+                double w = ((MainActivity3) view.getContext()).Weight;
+                int age = ((MainActivity3) view.getContext()).Age;
+                double RR = ((MainActivity3) view.getContext()).RR;
+                double IE = ((MainActivity3) view.getContext()).IE;
+                double PEEP = ((MainActivity3) view.getContext()).PEEP;
+                double VMAX = ((MainActivity3) view.getContext()).VMAX;
+                double MinVolume = ((MainActivity3) view.getContext()).MinVolume;
 
-                    try {
-                        updater = new PlotUpdater(r, c, gender, age, h, w, 0.1, RR, IE, VMAX, PEEP, MinVolume, (MainActivity3) view.getContext());
+                try {
+                    updater = new PlotUpdater(r, c, gender, age, h, w, 0.1, RR, IE, VMAX, PEEP, MinVolume, (MainActivity3) view.getContext());
 
-
-                        // imageButtonStart.setBackgroundResource(R.drawable.pauseblu);
+                    updaterThread = new Thread(updater);
+                    updaterThread.start();
 
 
-                        updaterThread = new Thread(updater);
-                        updaterThread.start();
-                                
-                                
-                          //      updater.setStatus("Freeze");
-                               
+                    //      updater.setStatus("Freeze");
 
-                            
 
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-                
+            }
+
 
         });
 
@@ -119,10 +109,10 @@ public class MainActivity3 extends AppCompatActivity {
         ImageButton imageButtonPause = findViewById(R.id.imageButtonPause);
         imageButtonPause.setOnClickListener(new View.OnClickListener() {
             @Override
-                                                public void onClick(View view) {
-                                                    updater.setStatus("Freeze");
-                                                }
-                                            });
+            public void onClick(View view) {
+                updater.setStatus("Freeze");
+            }
+        });
 
         //BOTTONE trova il bottone//
         imageButtonStop = findViewById(R.id.imageButtonStop);
@@ -148,6 +138,8 @@ public class MainActivity3 extends AppCompatActivity {
 
                 patient = (Button) findViewById(R.id.patient);
                 Intent j = new Intent(MainActivity3.this, PopActivityPatient.class);
+                //Log.d("Age", String.valueOf(Age));
+                //j.putExtra("Age",Age);
                 startActivityForResult(j, 2);
 
             }
@@ -167,7 +159,6 @@ public class MainActivity3 extends AppCompatActivity {
         String resetFlag = sharedPreferences.getString("resetFlag", "");
 
 
-
         if ("reset".equals(resetFlag)) {
             // Reset the string values
             FirstName = "FirstName";
@@ -185,8 +176,6 @@ public class MainActivity3 extends AppCompatActivity {
             RR = 19;
 
 
-
-
             // Reset the flag
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("resetFlag", "");
@@ -197,7 +186,6 @@ public class MainActivity3 extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent myIntent) {
         super.onActivityResult(requestCode, resultCode, myIntent);
@@ -206,25 +194,44 @@ public class MainActivity3 extends AppCompatActivity {
             FirstName = myIntent.getStringExtra("FirstName");
             Gender = myIntent.getStringExtra("Gender");
             SecondName = myIntent.getStringExtra("SecondName");
-            Age = myIntent.getIntExtra("Age",18);
-            Weight = myIntent.getFloatExtra("Weight",80);
-            Height = myIntent.getFloatExtra("Height",1.5f);
-            Comp = myIntent.getFloatExtra("Comp",1);
-            Res = myIntent.getFloatExtra("Res",10);
+            Age = myIntent.getIntExtra("Age", 18);
+            Weight = myIntent.getFloatExtra("Weight", 80);
+            Height = myIntent.getFloatExtra("Height", 1.5f);
+            Comp = myIntent.getFloatExtra("Comp", 1);
+            Res = myIntent.getFloatExtra("Res", 10);
 
 
+            if (updater != null) {
+                try {
+                    if (updaterThread != null)
+                        updater.killUpdater();
+                    updater = new PlotUpdater(Res, Comp, Gender, Age, Height, Weight, 0.1, RR, IE, VMAX, PEEP, MinVolume, this);
+                    updaterThread = new Thread(updater);
+                    updaterThread.start();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
         if (requestCode == 3 && resultCode == MainActivity3.RESULT_OK) {
-            PEEP = myIntent.getFloatExtra("PEEP",5);
-            VMAX = myIntent.getFloatExtra("VMAX",35);
-            MinVolume = myIntent.getFloatExtra("MinVolume",9);
-            IE = myIntent.getFloatExtra("IE",0.5f);
-            RR = myIntent.getFloatExtra("RR",19);
+            PEEP = myIntent.getFloatExtra("PEEP", 5);
+            VMAX = myIntent.getFloatExtra("VMAX", 35);
+            MinVolume = myIntent.getFloatExtra("MinVolume", 9);
+            IE = myIntent.getFloatExtra("IE", 0.5f);
+            RR = myIntent.getFloatExtra("RR", 19);
 
-
+            if (updater != null) {
+                try {
+                    if (updaterThread != null)
+                        updater.killUpdater();
+                    updater = new PlotUpdater(Res, Comp, Gender, Age, Height, Weight, 0.1, RR, IE, VMAX, PEEP, MinVolume, this);
+                    updaterThread = new Thread(updater);
+                    updaterThread.start();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
-
     }
 
 }
-

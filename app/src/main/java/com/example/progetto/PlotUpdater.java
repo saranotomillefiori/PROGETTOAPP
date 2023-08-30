@@ -29,6 +29,7 @@ public class PlotUpdater implements Runnable {
 
     LungSimulatorInterface simulator;
     String status;
+    boolean kill;
     Ventilator ventilator;
     MainActivity3 parentActivity;
 
@@ -47,6 +48,7 @@ public class PlotUpdater implements Runnable {
                        double w, double step, double rr, double ie, double vMax,
                        double peep, double minVol, MainActivity3 parentActivity)
             throws IOException {
+        kill = false;
         String modelDescription = """
                 ---
                 schema: 2
@@ -135,7 +137,7 @@ public class PlotUpdater implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (!kill) {
             if (status.equals("Start")) {
                 simulator.simulationStep(ventilator.getValue());
                 Log.d("t", "Update flow chart");
@@ -147,6 +149,7 @@ public class PlotUpdater implements Runnable {
                     Otis.calculatewithOtisFormula(
                             gender, res, c, minVolume, rr, weight, height);
                     float distance = Otis.OtisChartDistance(minVolume, rr, weight);
+                    Log.d("DIST", Float.toString(distance));
                     calculateOtis(distance);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
@@ -157,86 +160,93 @@ public class PlotUpdater implements Runnable {
         }
     }
 
-public void calculateOtis(float distance) {
+    public void calculateOtis(float distance) {
 
         try {
 
-            if (distance <= 370) {
+            if (distance <= 30.73) {
                 ImageView imageView = (ImageView) parentActivity.findViewById(R.id.imageViewSemaforo);
                 imageView.setImageResource(R.drawable.semverdesupernova);
 
-            }
-            else if (distance>370 && distance < 371.75) {
+            } else if (distance > 30.73 && distance < 42.44) {
                 ImageView imageView = (ImageView) parentActivity.findViewById(R.id.imageViewSemaforo);
                 imageView.setImageResource(R.drawable.semgiallosupernova);
-            }
-            else if (distance >= 371.75 ) {
+            } else if (distance >= 42.44) {
                 ImageView imageView = (ImageView) parentActivity.findViewById(R.id.imageViewSemaforo);
                 imageView.setImageResource(R.drawable.semrossosupernova);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
+    public void killUpdater() {
+        kill = true;
+    }
+
     public void updateFlowChart() {
-        // Get the values of the last 50 flows measured
-        List<Double> flowValues = simulator.getFlow();
-        // Build the list of entries
-        List<Entry> entries3 = new ArrayList<>();
-        int index = 0;
-        for (double flow : flowValues) {
-            entries3.add(new Entry(index, (float) flow));
-            index++;
+        try {
+            // Get the values of the last 50 flows measured
+            List<Double> flowValues = simulator.getFlow();
+            // Build the list of entries
+            List<Entry> entries3 = new ArrayList<>();
+            int index = 0;
+            for (double flow : flowValues) {
+                entries3.add(new Entry(index, (float) flow));
+                index++;
+            }
+            // Build the dataset
+            LineDataSet dataSet3 = new LineDataSet(entries3, "AirFlow over Time");
+            dataSet3.setColor(Color.GREEN);
+            dataSet3.setDrawCircles(false);
+            dataSet3.setDrawValues(false);
+            dataSet3.setValueTextColor(Color.BLACK);
+            dataSet3.setLineWidth(3);
+            int color = R.color.blu;
+            dataSet3.setColor(color);
+            // Set the CHART3 dataset to that previously build
+            LineData lineData3 = new LineData(dataSet3);
+            parentActivity.chart3.setData(lineData3);
+            parentActivity.chart3.invalidate();
+            Description description = new Description();
+            description.setText("Air Flow");
+            description.setTextSize(18);
+            description.setTextColor(color);
+            description.setTextAlign(Paint.Align.RIGHT);
+            parentActivity.chart3.setDescription(description);
+        } catch (ArrayIndexOutOfBoundsException ex) {
         }
-        // Build the dataset
-        LineDataSet dataSet3 = new LineDataSet(entries3, "AirFlow over Time");
-        dataSet3.setColor(Color.GREEN);
-        dataSet3.setDrawCircles(false);
-        dataSet3.setDrawValues(false);
-        dataSet3.setValueTextColor(Color.BLACK);
-        dataSet3.setLineWidth(3);
-        int color = R.color.blu;
-        dataSet3.setColor(color);
-        // Set the CHART3 dataset to that previously build
-        LineData lineData3 = new LineData(dataSet3);
-        parentActivity.chart3.setData(lineData3);
-        parentActivity.chart3.invalidate();
-        Description description = new Description();
-        description.setText("Air Flow");
-        description.setTextSize(18);
-        description.setTextColor(color);
-        description.setTextAlign(Paint.Align.RIGHT);
-        parentActivity.chart3.setDescription(description);
     }
 
     public void updatePressureChart() {
-        List<Double> pressureValues = simulator.getPressure();
-        List<Entry> entries2 = new ArrayList<>();
-        int index = 0;
-        for (double pressure : pressureValues) {
-            entries2.add(new Entry(index, (float) pressure));
-            index++;
+        try {
+            List<Double> pressureValues = simulator.getPressure();
+            List<Entry> entries2 = new ArrayList<>();
+            int index = 0;
+            for (double pressure : pressureValues) {
+                entries2.add(new Entry(index, (float) pressure));
+                index++;
+            }
+            // Build the dataset
+            LineDataSet dataSet2 = new LineDataSet(entries2, "Pressure / Time");
+            dataSet2.setColor(Color.BLUE);
+            dataSet2.setDrawCircles(false);
+            dataSet2.setDrawValues(false);
+            dataSet2.setValueTextColor(Color.BLACK);
+            dataSet2.setLabel("PRESSURE OVER TIME");
+            dataSet2.setLineWidth(3);
+            int color = R.color.blu;
+            dataSet2.setColor(color);
+            // Set the CHART2 dataset to that previously build
+            LineData lineData2 = new LineData(dataSet2);
+            parentActivity.chart2.setData(lineData2);
+            parentActivity.chart2.invalidate();
+            Description description = new Description();
+            description.setText("Pressure");
+            description.setTextSize(18);
+            description.setTextColor(color);
+            parentActivity.chart2.setDescription(description);
+        } catch (ArrayIndexOutOfBoundsException ex) {
         }
-        // Build the dataset
-        LineDataSet dataSet2 = new LineDataSet(entries2, "Pressure / Time");
-        dataSet2.setColor(Color.BLUE);
-        dataSet2.setDrawCircles(false);
-        dataSet2.setDrawValues(false);
-        dataSet2.setValueTextColor(Color.BLACK);
-        dataSet2.setLabel("PRESSURE OVER TIME");
-        dataSet2.setLineWidth(3);
-        int color = R.color.blu;
-        dataSet2.setColor(color);
-        // Set the CHART2 dataset to that previously build
-        LineData lineData2 = new LineData(dataSet2);
-        parentActivity.chart2.setData(lineData2);
-        parentActivity.chart2.invalidate();
-        Description description = new Description();
-        description.setText("Pressure");
-        description.setTextSize(18);
-        description.setTextColor(color);
-        parentActivity.chart2.setDescription(description);
     }
 }
