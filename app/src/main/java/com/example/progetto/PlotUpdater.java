@@ -91,7 +91,6 @@ public class PlotUpdater implements Runnable {
                   x1: 0\s
                   y1: 1""";
         ventilator = new Ventilator(rr, ie, vMax, peep);
-        // DEVO SCRIVERE LA STESSA RIGA DI CODICE PER IL SIMULATORE CON L'ALTRO POP UP????
         // Build the simulator with simple RC circuit
         simulator = new LungSimulatorInterface(modelDescription);
         simulator.setRandC(res, c);

@@ -34,7 +34,7 @@ public class Ventilator implements Runnable {
         while (this.status.equals("START")) {
             value = (int) this.vMax;
             try {
-                // ANDREA: Thread.sleep receives the time expressed in milliseconds,
+                // Thread.sleep receives the time expressed in milliseconds,
                 // thus it must be multiplied per 1000
 
                 // Inspiration
@@ -44,9 +44,6 @@ public class Ventilator implements Runnable {
             }
             value = (int) this.peep;
             try {
-                // ANDREA: Thread.sleep receives the time expressed in milliseconds,
-                // thus it must be multiplied per 1000
-
                 // Expiration
                 Thread.sleep((int) ((60 / rr) * (1 - (1 / (1 + ie)))) * 1000);
             } catch (InterruptedException e) {

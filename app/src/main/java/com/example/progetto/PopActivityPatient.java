@@ -39,6 +39,16 @@ public class PopActivityPatient extends AppCompatActivity {
 
         //Log.d("AA", String.valueOf(getIntent().getIntExtra("Age", 0)));
         //((EditText) findViewById(R.id.editTextAge)).setText(getIntent().getIntExtra("Age", 0));
+        /*Button savepatient = findViewById(R.id.savepatient);
+        savepatient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String FirstName = String.valueOf((EditText) findViewById(R.id.editTextFirstName).getText().toString());
+                String.valueOf((EditText) findViewById(R.id.editTextFirstName).setText(FirstName);
+            }
+        });*/
+        //EditText FirstName = (EditText) findViewById(R.id.editTextFirstName);
+
     }
 
     public void getResult(View view) {

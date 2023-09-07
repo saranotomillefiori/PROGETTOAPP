@@ -41,9 +41,6 @@ public class MainActivity3 extends AppCompatActivity {
     public float Res;
 
     public float PEEP;
-    public float fio2;
-    public float pmax;
-    public float VM;
     public float VMAX;
     public float MinVolume;
     public float IE;
@@ -57,15 +54,13 @@ public class MainActivity3 extends AppCompatActivity {
         setContentView(R.layout.activity_main3);
 
 
-        // seconda
         chart2 = (LineChart) findViewById(R.id.chart2);
         chart2.getLegend().setEnabled(false);
 
-        // terza
         chart3 = (LineChart) findViewById(R.id.chart3);
         chart3.getLegend().setEnabled(false);
 
-        // bottone start
+        // start button
         imageButtonStart = findViewById(R.id.imageButtonStart);
         imageButtonStart.bringToFront();
         imageButtonStart.setOnClickListener(new View.OnClickListener() {
@@ -73,9 +68,7 @@ public class MainActivity3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // double R, double C, String gender, int age, double h, double w, double step, MainActivity3 parentActivity
                 double r = ((MainActivity3) view.getContext()).Res;
-                // rifaccio per tutti double c = Double.parseDouble(String.valueOf(((EditText) findViewById(R.id.editTextComp)).getText()));
                 String gender = ((MainActivity3) view.getContext()).Gender;
                 double c = ((MainActivity3) view.getContext()).Comp;
                 double h = ((MainActivity3) view.getContext()).Height;
@@ -92,20 +85,13 @@ public class MainActivity3 extends AppCompatActivity {
 
                     updaterThread = new Thread(updater);
                     updaterThread.start();
-
-
-                    //      updater.setStatus("Freeze");
-
-
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
-
-
         });
 
-        // bottone pausa
+        // pause button
         ImageButton imageButtonPause = findViewById(R.id.imageButtonPause);
         imageButtonPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,14 +100,12 @@ public class MainActivity3 extends AppCompatActivity {
             }
         });
 
-        //BOTTONE trova il bottone//
         imageButtonStop = findViewById(R.id.imageButtonStop);
         imageButtonStop.bringToFront();
         patient = findViewById(R.id.patient);
         patient.bringToFront();
         ventilator = findViewById(R.id.ventilator);
         ventilator.bringToFront();
-        // BOTTONE imposta azione quando il bottone viene cliccato tutto quello da qui in poi
         imageButtonStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,8 +122,6 @@ public class MainActivity3 extends AppCompatActivity {
 
                 patient = (Button) findViewById(R.id.patient);
                 Intent j = new Intent(MainActivity3.this, PopActivityPatient.class);
-                //Log.d("Age", String.valueOf(Age));
-                //j.putExtra("Age",Age);
                 startActivityForResult(j, 2);
 
             }
@@ -158,7 +140,6 @@ public class MainActivity3 extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("ResetPrefs", MODE_PRIVATE);
         String resetFlag = sharedPreferences.getString("resetFlag", "");
 
-
         if ("reset".equals(resetFlag)) {
             // Reset the string values
             FirstName = "FirstName";
@@ -175,17 +156,12 @@ public class MainActivity3 extends AppCompatActivity {
             IE = 0.5f;
             RR = 19;
 
-
             // Reset the flag
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("resetFlag", "");
             editor.apply();
         }
-
-
     }
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent myIntent) {
         super.onActivityResult(requestCode, resultCode, myIntent);
