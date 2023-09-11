@@ -80,7 +80,7 @@
                     android:layout_height="60dp"
 
                     android:ems="10"
-                    android:hint="Weight (kg)"
+                    android:hint="Weight [kg]"
                     android:textColor="#000000"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -91,7 +91,7 @@
                     android:layout_height="60dp"
 
                     android:ems="10"
-                    android:hint="Height (m)"
+                    android:hint="Height [m]"
                     android:textColor="#000000"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -102,7 +102,7 @@
                     android:layout_height="60dp"
 
                     android:ems="10"
-                    android:hint="Compliance"
+                    android:hint="Compliance [L/cmH2O]"
                     android:textColor="#000000"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
 
                     android:ems="10"
-                    android:hint="Resistance"
+                    android:hint="Resistance [cmH2O s/L]"
                     android:textColor="#000000"
                     android:textSize="20sp"
                     android:textStyle="bold" />
